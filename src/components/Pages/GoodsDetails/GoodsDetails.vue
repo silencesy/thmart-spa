@@ -419,7 +419,7 @@
 					that.goodsData = response.data.data;
 					that.skuInitData(response.data.data.skuList);
 					that.getTextareaData();
-					// that.getWx();
+					that.goodsData.detail = that.goodsData.detail.replace(/<img alt=""/g,"<img alt='' preview='20' ")
 		        })
 		        .catch(function (error) {
 		          console.log(error);
