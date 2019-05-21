@@ -99,7 +99,15 @@ exports.install = function(Vue, options) {
         logistics: 'Logistics/detail',
         // 领取优惠券
         getCoupon: 'Coupon/get',
-        share: 'http://api1.mall.thatsmags.com/Api/Wx/wxShare'
-
+        // 分享wx js
+        share: 'http://api1.mall.thatsmags.com/Api/Wx/wxShare',
+        // 拼单分享详情页
+        shareDetails: 'OrderSpell/detail',
+        //拼单分享详情判断是否已经拼单
+        checkOrderSpell: 'OrderSpell/check',
+        // 一个用户自己不能拼自己的单（商品详情页进行拼单时使用）
+        checkTwo: 'OrderSpell/checkTwo',
+        // 一个用户48小时内不能对一个商品发起两次拼单
+        checkThree: 'OrderSpell/checkThree'
     }
 };

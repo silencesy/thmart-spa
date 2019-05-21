@@ -54,8 +54,10 @@ import GoodsRow from "../BaseComponents/GoodsRow";
 import BottomBar from '../BaseComponents/BottomBar';
 import BackToTop from "../BaseComponents/BackToTop";
 import { Toast,Indicator } from 'mint-ui'
+import wxMixin from '../../utils/weixinShare.js';
 export default {  
-  name: 'home',  
+  name: 'home',
+  mixins: [wxMixin],
   data() {  
     return {
       // 首页数据
@@ -95,6 +97,7 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+    
   },
   beforeRouteLeave (to, from, next) {
     if (to.name == 'Categories' && to.query.id && to.query.id) {

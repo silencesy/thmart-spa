@@ -39,9 +39,11 @@
   </div>  
 </template>  
   
-<script>  
+<script>
+import wxMixin from '../../utils/weixinShare.js';
 export default {  
   name: 'Categories',  
+  mixins: [wxMixin],
   data() {  
     return {  
       height: 0,

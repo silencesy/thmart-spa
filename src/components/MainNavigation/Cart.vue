@@ -102,8 +102,10 @@
 <script> 
 import Count from '@/components/BaseComponents/Count'
 import { Toast,MessageBox } from 'mint-ui';
+import wxMixin from '../../utils/weixinShare.js';
 export default {
-  name: 'Cart',  
+	name: 'Cart',
+	mixins: [wxMixin],
   data() {  
     return {  
        isLogin: false,

@@ -132,9 +132,12 @@
 					trade_no: that.$route.query.orderNumber
 				}).then(function(response) {
 					// that.detailData = response.data.data
-					if (response.data.code == 1 && response.data.message == 'success' ) {
+					if (response.data.code == 1 && response.data.data == 'paid' ) {
 						clearInterval(that.weChatTimer);
 						that.$router.push({path: '/Paid', query: {orderNumber: that.$route.query.orderNumber}})
+					} else if (response.data.code == 1 && response.data.data == 'spell') {
+						clearInterval(that.weChatTimer);
+						that.$router.push({path: '/shareShow', query: {id: that.$route.query.orderNumber}})
 					}
 				}).catch(function() {
 

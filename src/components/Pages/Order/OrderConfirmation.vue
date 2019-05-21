@@ -202,7 +202,8 @@
 				var that = this;
 				that.$http.post(this.urls.OrderPrepareOrder,{
 					skuId: this.$route.query.skuId || '',
-					number: this.$route.query.number || ''
+					number: this.$route.query.number || '',
+					isSpell: this.$route.query.isSpell || '',
 				})
 				.then(function (response) {
 					// console.log(response)
@@ -232,7 +233,9 @@
 					addressId: that.addrList[0].id,
 					skuId: that.$route.query.skuId || '',
 					number: that.$route.query.number || '',
-					buyerRemark: that.remark
+					buyerRemark: that.remark,
+					isSpell: this.$route.query.isSpell || '',
+					spellId: this.$route.query.spellId || '',
 				})
 				.then(function (response) {
 					// http://page.thatsmags.com/WebAccess/get-weixin-code.html?appid=wx06e97f4ed4ac07e3&scope=snsapi_base&state=STATE&redirect_uri=http%3A%2F%2F'+ csOrzs2 +'%2FApi%2FCommon%2Findex%3Forderid='+ orderid
@@ -301,6 +304,7 @@
 				that.$http.post(this.urls.OrderPrepareOrder,{
 					skuId: this.$route.query.skuId || '',
 					number: this.$route.query.number || '',
+					isSpell: this.$route.query.isSpell || '',
 					couponId: fullReduction.couponId?fullReduction.couponId:0
 				})
 				.then(function (response) {

@@ -107,6 +107,14 @@ Axios.interceptors.response.use(
             if (res.data.code == 120) {
                 Toast('该手机还已经绑定微信！');
             }
+            // 用户不能拼自己发起的单
+            if (res.data.code == 123) {
+              Toast('用户不能拼自己发起的单');
+            }
+            // 用户48小时内不能对同一个商品发起两次拼单
+            if (res.data.code == 124) {
+              Toast('用户48小时内不能对同一个商品发起两次拼单');
+            }
             if (res.data.code == 0) {
                 router.push({
                     path: "/error"

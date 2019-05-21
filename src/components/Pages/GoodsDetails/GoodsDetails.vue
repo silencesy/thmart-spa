@@ -23,7 +23,7 @@
 			<p class="price theme_color" v-if="goodsData.minPrice == goodsData.maxPrice">￥{{goodsData.minPrice}}</p>
 			<p>* This product ships to Mainland China only.(An extra shipping fee will be charged for HKSAR,MCSAR and other countries/regions)</p>
 		</div>
-		<div class="row-line" @click="showBuy('specifications')">
+		<div v-if="goodsData.type!='spell'" class="row-line" @click="showBuy('specifications')">
 			Specifications <i class="icon-combinedshapefuben iconfont"></i>
 		</div>
 		<div class="coupon-info" v-if="!(goodsData.overReduce.length == 0 && goodsData.couponList.length == 0)">
@@ -37,6 +37,28 @@
 				<span>{{goodsData.couponList[0].name}}</span>
 				<i class="icon-combinedshapefuben iconfont"></i>
 			</p>
+		</div>
+		<div v-if="goodsData.spellInfo.spellList.length>0" class="row-line" @click="showShare">
+			Group Buy List  <i v-if="goodsData.spellInfo.spellList.length>2" class="icon-combinedshapefuben iconfont"></i>
+		</div>
+		<div class="other-share" v-if="goodsData.spellInfo.spellList.length>0">
+			<div class="share-list">
+				<div class="item" v-for="(item,index) in goodsData.spellInfo.spellList" v-if="index<2" :key="index">
+					<div>
+						<img :src="item.headimg_url" alt="">
+						<div class="line1">{{item.nickname}}</div>
+					</div>
+					<div>
+						<div>Only {{item.number_left}} Spot Left</div>
+						<div>
+							<count-down :currentTime="Number(item.currentTime)" :startTime="Number(item.currentTime)" :endTime="Number(item.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="' Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''" :isSpell="'yes'"></count-down>
+						</div>
+					</div>
+					<div>
+						<span @click="showBuy('spell',item.id)">Join Now</span>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="row-line"  @click="bindGoReviews">
 			Reviews ({{reviewsNumber}}) <i class="icon-combinedshapefuben iconfont"></i>
@@ -63,7 +85,33 @@
 		<div class="bottomCode">
 			<img src="static/images/common/last.jpg" alt="">
 		</div>
-		<div class="bottom-banner">
+		<div class="bottom-banner share" v-if="goodsData.type=='spell'">
+			<div class="features">
+				<div class="icon-box">
+					<i class="iconfont icon-shanghu1" @click="backHome"></i>
+					<div>Home</div>
+				</div>
+				<div class="icon-box" @click="bindChat">
+					<i class="iconfont icon-kefu"></i>
+					<div>Chat</div>
+				</div>
+				<div class="icon-box" @click="save">
+					<i class="iconfont icon-shoucang1" :class="{theme_color: goodsData.isCollect==1}"></i>
+					<div>Save</div>
+				</div>
+			</div>
+			<div class="cart-buy">
+				<div @click="showBuy('buy')">
+					<div class="theme_color">¥{{goodsData.singleBuyPrice}}</div>
+					<div class="theme_color">Buy Now</div>
+				</div>
+				<div @click="showBuy('spell')">
+					<div>¥{{goodsData.minPrice}}</div>
+					<div>Start Duo Deal</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom-banner" v-else>
 			<div class="features">
 				<div class="icon-box">
 					<i class="iconfont icon-shanghu1" @click="backHome"></i>
@@ -83,18 +131,33 @@
 				<div @click="showBuy('buy')">Buy Now</div>
 			</div>
 		</div>
+		
 		<!-- 商品选择弹出框 -->
 		<div class="layer-container">
 			<div v-show="layerBox" class="layer-bg" @click="close"></div>
 			<div class="buy-goods-info" :style="{bottom: bottom}">
 				<div class="single-sku-info">
-					<div v-if="!singleSkuInfo">
+					<div v-if="!singleSkuInfo && goodsData.type =='spell'">
 						<div class="sku-info-img">
 							<img :src="goodsData.pic" preview="2" alt="">
 						</div>
 						<div class="sku-info-text">
-							<p class="price theme_color" v-if="goodsData.minPrice != goodsData.maxPrice">￥{{goodsData.minPrice}} - ￥{{goodsData.maxPrice}}</p>
-							<p class="price theme_color" v-if="goodsData.minPrice == goodsData.maxPrice">￥{{goodsData.minPrice}}</p>
+							<p class="price theme_color" v-if="isSpellSinglePrice && goodsData.minPrice != goodsData.maxPrice">￥{{goodsData.minPrice}} - ￥{{goodsData.singleBuyPriceMax}}</p>
+							<p class="price theme_color" v-if="isSpellSinglePrice && goodsData.minPrice == goodsData.maxPrice">￥{{goodsData.minPrice}}</p>
+							<p class="price theme_color" v-if="!isSpellSinglePrice && goodsData.minPrice != goodsData.maxPrice">￥{{goodsData.singleBuyPrice}} - ￥{{goodsData.maxPrice}}</p>
+							<p class="price theme_color" v-if="!isSpellSinglePrice && goodsData.minPrice == goodsData.maxPrice">￥{{goodsData.singleBuyPrice}}</p>
+							<p class="chooseattr line1">Please select goods222</p>
+							<p class="stock">Stock: {{goodsData.sumStock}}</p>
+							<i class="iconfont icon-guanbi" @click="close"></i>
+						</div>
+					</div>
+					<div v-if="!singleSkuInfo && goodsData.type !='spell'">
+						<div class="sku-info-img">
+							<img :src="goodsData.pic" preview="2" alt="">
+						</div>
+						<div class="sku-info-text">
+							<p class="price theme_color" v-if="!isSpellSinglePrice && goodsData.minPrice != goodsData.maxPrice">￥{{goodsData.minPrice}} - ￥{{goodsData.maxPrice}}</p>
+							<p class="price theme_color" v-if="!isSpellSinglePrice && goodsData.minPrice == goodsData.maxPrice">￥{{goodsData.minPrice}}</p>
 							<p class="chooseattr line1">Please select goods</p>
 							<p class="stock">Stock: {{goodsData.sumStock}}</p>
 							<i class="iconfont icon-guanbi" @click="close"></i>
@@ -153,6 +216,24 @@
 							<i class="iconfont icon-guanbi" @click="close"></i>
 						</div>
 					</div>
+					<!-- 拼单商品 -->
+					<div v-if="singleSkuInfo && singleSkuInfo.type == 'spell'">
+						<div class="sku-info-img">
+							<img class="sale-icon" src="static/images/common/sale.png" alt="">
+							<img :src="singleSkuInfo.pic" preview="2" alt="">
+						</div>
+						<div class="sku-info-text">
+							<p v-if="isSpellSinglePrice" class="price theme_color">￥{{singleSkuInfo.spellPrice}} <del v-if="singleSkuInfo.price">￥{{singleSkuInfo.price}}</del></p>
+							<p v-else class="price theme_color">￥{{singleSkuInfo.price}}</p>
+							<p class="chooseattr line1">
+								<span class="choose-arr" v-for="(item,index) in singleSkuInfo.propName" :key="index">
+									{{item[0]}}
+								</span>
+							</p>
+							<p class="stock">Stock: {{singleSkuInfo.stock}}</p>
+							<i class="iconfont icon-guanbi" @click="close"></i>
+						</div>
+					</div>
 				</div>
 				<ScrollView ref="ScrollView" height="290" :loadding="loadding" :open="open">
 					<div class="choose-sku">
@@ -179,6 +260,7 @@
 	        		</div>
 	        		<div v-show="showRowBtn=='cart'"  @click="addCart" class="btn add-cart-btn">Done</div>
 	        		<div v-show="showRowBtn=='buy'" @click="goBuy" class="btn">Done</div>
+					<div v-show="showRowBtn=='spell'" @click="goBuy('spell')" class="btn">Done</div>
 	        	</div>
 			</div>
 		</div>
@@ -213,6 +295,42 @@
 		  	</div>
 
 		</mt-popup>
+		<!-- 拼单列表 -->
+		<mt-popup
+			v-model="sharepopupVisible"
+			position="bottom">
+			
+		  	<div class="share-layer-container" v-if="sharepopupVisible">
+		  		<div class="title">
+		  			Group Buy List <i @click="hideShare" class="iconfont share icon-guanbi"></i>
+		  		</div>
+		  		<ScrollView ref="ScrollView" height="230" :loadding="loadding" :open="sharepopupVisible">
+			  		<div class="other-share no-boder">
+						<div class="share-list">
+							<div class="item" v-for="(item,index) in goodsData.spellInfo.spellList" :key="index">
+								<div>
+									<img :src="item.headimg_url" alt="">
+									<div class="line1">{{item.nickname}}</div>
+								</div>
+								<div>
+									<div>Only {{item.number_left}} Spot Left</div>
+									<div>
+										<count-down :currentTime="Number(item.currentTime)" :startTime="Number(item.currentTime)" :endTime="Number(item.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="' Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''" :isSpell="'yes'"></count-down>
+									</div>
+								</div>
+								<div>
+									<span @click="showBuy('spell',item.id)">Join Now</span>
+								</div>
+							</div>
+						</div>
+					</div>
+		  		</ScrollView>
+		  		<div class="bottom">
+		  			<!-- <span>只显示10个拼单，滑动展示</span> -->
+		  		</div>
+		  	</div>
+
+		</mt-popup>
 	</div>
 </template>
 <script>
@@ -224,6 +342,12 @@
 		name: 'goods',
 		data() {
 			return {
+				// 拼单id
+				spellId: null,
+				// 是否显示拼单单个sku价格
+				isSpellSinglePrice: false,
+				// 拼单展示弹框
+				sharepopupVisible: false,
 				// 商品信息
 				goodsData: {},
 				// 购买弹出框
@@ -291,10 +415,26 @@
 	  		// console.log(this.urls.productDetails)
 	  	},
 	  	methods: {
+			// 隐藏
+			hideShare() {
+				this.sharepopupVisible = false;
+			},
+			// 展示拼单列表
+			showShare() {
+				if(this.goodsData.spellInfo.spellList.length>2) {
+					this.sharepopupVisible = true;
+				}
+			},
 			// 分享
 			getWx() {
 				let that = this;
-				let url = window.location.href;
+				var u = navigator.userAgent;
+        		var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if (isiOS) {
+					var url = window.sessionStorage.getItem('href');
+				} else {
+					var url = window.location.href;
+				}
 	  			that.$http.post(that.urls.share,{url:url})
 		        .then(function (response) {
 					that.signPackage = response.data.data.signPackage;
@@ -319,13 +459,13 @@
 						]// 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 				});
 				wx.ready(function(){
-					var url = window.location.origin + window.location.pathname + '?id=' + that.$route.query.id;
+					var url = window.location.href;
 					console.log(url);
 					var options ={
 						title: that.goodsData.title,// 分享标题
 						link: encodeURI(url),// 分享链接，记得使用绝对路径
 						imgUrl: encodeURI(that.goodsData.pic),// 分享图标，记得使用绝对路径
-						desc:'参与答题 好礼等您来拿！',// 分享描述
+						desc:'That’s making your life easier!',// 分享描述
 						success:function(){
 						console.info('分享成功！');
 						// 用户确认分享后执行的回调函数
@@ -419,7 +559,8 @@
 					that.goodsData = response.data.data;
 					that.skuInitData(response.data.data.skuList);
 					that.getTextareaData();
-					that.goodsData.detail = that.goodsData.detail.replace(/<img alt=""/g,"<img alt='' preview='20' ")
+					that.goodsData.detail = that.goodsData.detail.replace(/<img alt=""/g,"<img alt='' preview='20' ");
+					that.getWx();
 		        })
 		        .catch(function (error) {
 		          console.log(error);
@@ -453,14 +594,27 @@
 	  		go() {
 	  			this.$router.go(-1);
 	  		},
-	  		showBuy(flag) {
+	  		showBuy(flag,id) {
 	  			this.layerBox = true;
-	  			this.bottom = 0;
+				this.bottom = 0;
+				console.log(flag,id)
+				if(flag=='buy' || flag =='cart') {
+					this.isSpellSinglePrice = false;
+				} else if (flag=='spell') {
+					if(id) {
+						this.spellId = id;
+					} else {
+						this.spellId = null;
+					}
+					this.sharepopupVisible = false;
+					this.isSpellSinglePrice = true;
+				}
 	  			// 开启类型滑块
 	  			if (!this.open) {
 	  				this.open = true;
 	  			}
-	  			this.showRowBtn =flag;
+				  this.showRowBtn =flag;
+				  
 	  		},
 	  		// 添加购物车
 	  		addCart() {
@@ -492,7 +646,7 @@
 	  		},
 	  		// 下单
 	  		// 添加购物车
-	  		goBuy() {
+	  		goBuy(spell) {
 	  			let that = this;
 	  			// 如果没有登录则跳转登录并且设置回跳地址
 	  			
@@ -503,9 +657,32 @@
 		  				that.setlocalStorage("goback",window.location.href);
 	  					that.$router.push({name: 'Login'});
 		  			} else {
-		  				that.close();
-						that.$router.push({name:'OrderConfirmation',query: {skuId: that.singleSkuInfo.id,
-						number: that.number}})
+						that.close();
+						// 如果spell是spell说明是拼单商品
+						if(spell == 'spell') {
+							if(that.spellId) {
+								that.$http.post(that.urls.checkTwo,{spellId:that.spellId})
+								.then(function (response) {
+										that.$router.push({name:'OrderConfirmation',query: {skuId: that.singleSkuInfo.id,
+									number: that.number,isSpell: 1,spellId: that.spellId}});
+								})
+								.catch(function (error) {
+									console.log(error);
+								});
+							} else {
+								that.$http.post(that.urls.checkThree,{itemId:that.goodsData.id})
+								.then(function (response) {
+									that.$router.push({name:'OrderConfirmation',query: {skuId: that.singleSkuInfo.id,
+										number: that.number,isSpell: 1}});
+								}).catch(function (error) {
+									console.log(error);
+								});
+							}
+						} else {
+							that.$router.push({name:'OrderConfirmation',query: {skuId: that.singleSkuInfo.id,
+							number: that.number}})
+						}
+		  				
 		  			}
 					
 	  			} else {
@@ -1099,6 +1276,26 @@
 		flex-direction: column;
 		flex: 1;
 	}
+	.bottom-banner.share .cart-buy > div {
+		line-height: 20px;
+		font-size: 14px;
+		padding-top: 6px;
+	}
+	.bottom-banner.share .cart-buy div:nth-child(2) {
+		flex: 1.6;
+	}
+	.bottom-banner.share .cart-buy > div:nth-child(1) {
+		background-color: #fff;
+	}
+	.bottom-banner.share .cart-buy > div:nth-child(2) > div {
+		color: #fff;
+	}
+	.bottom-banner.share .cart-buy > div:nth-child(1) > div:nth-child(2) {
+		font-size: 12px;
+	}
+	.bottom-banner.share .cart-buy > div:nth-child(2) > div:nth-child(2) {
+		font-size: 12px;
+	}
 	.icon-box i {
 		color: #919191;
 		height: 25px;
@@ -1445,5 +1642,96 @@
 	.reviews-content > div > div:nth-child(2) {
 		font-size: 14px;
 		color: #666666;
+	}
+	.other-share {
+		background-color: #fff;
+		/* padding: 15px 0; */
+		padding: 0 5px;
+		border-top: 1px solid #dfdfdf;
+	}
+	.other-share.no-boder {
+		border: none;
+	}
+	.share-list {
+		margin-top: 5px;
+	}
+	.share-list .item {
+		display: flex;
+		/* margin-bottom: 15px; */
+		padding: 10px;
+		border-bottom: 1px solid #dfdfdf;
+	}
+	.share-list .item:last-child {
+		border-bottom: none;
+	}
+	.share-list .item > div {
+		flex: 1;
+	}
+	.share-list .item > div:nth-child(2) {
+		flex: 1;
+	}
+	.share-list .item > div:nth-child(3) {
+		flex: 0.8;
+	}
+	.share-list .item > div:first-child {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.share-list .item > div:first-child img {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		margin-right: 5px;
+	}
+	.share-list .item > div:nth-child(1) > div {
+		width: 70px;
+	}
+	.share-list .item > div:nth-child(2) > div:nth-child(1) {
+		color: #222222;
+		font-size: 14px;
+	}
+	.share-list .item > div:nth-child(2) > div:nth-child(2) {
+		color: #666666;
+		font-size: 12px;
+		height: 25px;
+		text-align: center;
+		position: relative;
+	}
+	.share-list .item > div:nth-child(2) > div:nth-child(2) .container {
+		left: 0;
+		margin: auto;
+	}
+	.share-list .item > div:nth-child(2) > div:nth-child(2) .container p {
+		background-color: #fff;
+		color: #666666;
+	}
+	.share-list .item > div:nth-child(3) {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+	}
+	.share-list .item > div:nth-child(3) span {
+		display: inline-block;
+		background-color: #F9421E;
+		color: #fff;
+		border-radius: 30px;
+		width: 80%;
+		text-align: center;
+		height: 28px;
+		line-height: 28px;
+		font-size: 12px;
+	}
+	.share-layer-container .title {
+		text-align: center;
+		padding: 15px 0;
+		border-bottom: 1px solid #dfdfdf;
+	}
+	.share-layer-container .bottom {
+		text-align: center;
+		padding: 15px 0;
+	}
+	.iconfont.share {
+		right: 15px;
 	}
 </style>

@@ -17,11 +17,12 @@
               <div class="content">
                 <ShopGoodsItem v-for="(item,index) in allData" :key="item.orderNumber" iconfontName="icon-dingdanhao">
                   <span class="order-number" slot="orderNumber">{{item.orderNumber}}</span>
-                  <i v-if="item.status == 0" class="iconfont" slot="titleRight">Unpaid</i>
+                  <i v-if="item.status == 0 || item.status == 5" class="iconfont" slot="titleRight">Unpaid</i>
                   <i v-else-if="item.status == 1" class="iconfont" slot="titleRight">Unshipped</i>
                   <i v-else-if="item.status == 2" class="iconfont" slot="titleRight">In Progress</i>
                   <i v-else-if="item.status == 3" class="iconfont" slot="titleRight">Shipped</i>
                   <i v-else-if="item.status == 4" class="iconfont" slot="titleRight">Close</i>
+                  <i v-else-if="item.status == 6" class="iconfont share-text" slot="titleRight">Share with Your Friend,<br> {{item.number_left}} Vacancy Left</i>
                   <div class="img-box" slot="content">
                     <img class="goods-img" v-for="val,index in item.skuList" :src="val.pic" alt="">
                   </div>
@@ -31,13 +32,18 @@
                       <span><i>Total：</i>¥{{item.priceTotal}}</span>
                     </p>
                     <!-- 未支付 -->
-                    <div v-if="item.status == 0">
+                    <div v-if="item.status == 0 || item.status == 5">
                       <span @click="unpaidDetails(item.orderNumber)">Details</span>
                       <span @click="pay(item.orderNumber)">Pay</span>
                     </div>
                     <!-- 已支付 -->
                      <div v-else-if="item.status == 1">
                       <span @click="UnshippedDetails(item.orderNumber)">Details</span>
+                    </div>
+                    <!-- 已支付 -->
+                     <div v-else-if="item.status == 6">
+                      <span @click="UnshippedDetails(item.orderNumber)">Details</span>
+                      <span class="share-btn" @click="goSpellShare(item.orderNumber)">Invite Your Friends</span>
                     </div>
                     <!-- 运输中 -->
                      <div v-else-if="item.status == 2">
@@ -92,7 +98,8 @@
               <div class="content">
                 <ShopGoodsItem v-for="item,index in UnshippedData" :key="item.orderNumber" iconfontName="icon-dingdanhao">
                   <span class="order-number" slot="orderNumber">{{item.orderNumber}}</span>
-                  <i class="iconfont" slot="titleRight">Unshipped</i>
+                  <i v-if="item.status == 1" class="iconfont" slot="titleRight">Unshipped</i>
+                  <i v-if="item.status == 6" class="iconfont share-text" slot="titleRight">Share with Your Friend,<br> {{item.number_left}} Vacancy Left</i>
                   <div class="img-box" slot="content">
                     <img class="goods-img" v-for="val,index in item.skuList" :src="val.pic" alt="">
                   </div>
@@ -103,6 +110,7 @@
                     </p>
                     <div>
                       <span @click="UnshippedDetails(item.orderNumber)">Details</span>
+                      <span v-if="item.status == 6" class="share-btn" @click="goSpellShare(item.orderNumber)">Invite Your Friends</span>
                     </div>
                     
                   </div>
@@ -188,7 +196,7 @@
         UnpaidParam: {
           page: 0,
           pageSize: 20,
-          status: 0,
+          status: [0,5],
           totalPage: -1
         },
         UnpaidData: [],
@@ -197,7 +205,7 @@
         UnshippedParam: {
           page: 0,
           pageSize: 20,
-          status: 1,
+          status: [1,6,7],
           totalPage: -1
         },
         UnshippedData: [],
@@ -206,7 +214,7 @@
         ProgressParam: {
           page: 0,
           pageSize: 20,
-          status: 2,
+          status: [2],
           totalPage: -1
         },
         ProgressData: [],
@@ -215,7 +223,7 @@
         ShippedParam: {
           page: 0,
           pageSize: 20,
-          status: 3,
+          status: [3],
           totalPage: -1
         },
         ShippedData: [],
@@ -239,6 +247,15 @@
       
     },
     methods: {
+      // 去分享
+      goSpellShare(orderNumber) {
+        this.$router.push({
+          name: 'shareShow',
+          query: {
+            id: orderNumber
+          }
+        });
+      },
       goHome() {
 	  			this.$router.push('/');
 	  	},
@@ -448,6 +465,10 @@
   .title .iconfont {
     color: #F9421E;
   }
+  .title .iconfont.share-text {
+    font-size: 14px;
+    line-height: 12px;
+  }
   .bottom {
     background: #fff;
     overflow: hidden;
@@ -486,6 +507,11 @@
   }
   .bottom > div span:nth-child(2) {
     margin-right: 10px;
+  }
+  .bottom > div span:nth-child(2).share-btn {
+    width: 170px;
+    background-color: #F9421E;
+    color: #fff;
   }
   .img-box {
     overflow: hidden;

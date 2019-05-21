@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{'spell': isSpell=='yes'}">
     <p v-if="msTime.show" class="time">
       <!-- <span v-if="tipShow">{{tipText}}:</span> -->
       <!-- <span v-if="!tipShow">{{tipTextEnd}}:</span> -->
@@ -35,6 +35,11 @@
       }
     },
     props: {
+      // 是否拼单倒计时
+      isSpell: {
+        type: String,
+        default: 'no' 
+      },
       //距离开始提示文字
       tipText: {
         type: String,
@@ -205,8 +210,19 @@
     padding: 0 5px;
     float: left;
   }
-  span,i {
+  .container span,.container i {
     color: #fff;
     font-size: 13px;
   }
+  .spell p {
+    background: #fff;
+    border-radius: 4px;
+    padding: 0 5px;
+    float: left;
+  }
+  .spell span,.spell i {
+    color: #666;
+    font-size: 13px;
+  }
+  
 </style>

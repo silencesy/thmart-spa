@@ -16,8 +16,18 @@ export default {
   name: 'App',
   data() {  
     return {  
-      transitionName: 'slide-left'
+      transitionName: 'slide-left',
+      signPackage: null
     };  
+  },
+  mounted() {
+    this.setWxUrl();
+  },
+  methods: {
+    setWxUrl() {
+      var href = window.location.href;
+      window.sessionStorage.setItem('href',href);
+    }
   },
   watch: {
   '$route' (to, from) {
@@ -361,5 +371,8 @@ export default {
     width: 100%;
     justify-content: space-between;
     margin-right: 0;
+  }
+  .v-modal {
+      z-index: 998 !important;
   }
 </style>

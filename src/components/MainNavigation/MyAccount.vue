@@ -126,9 +126,11 @@
   </div>  
 </template>  
   
-<script>  
+<script>
+	import wxMixin from '../../utils/weixinShare.js';
 	export default {  
-	  name: 'MyAccount',  
+		name: 'MyAccount',
+		mixins: [wxMixin], 
 	  data() {  
 	    return {  
 	       userInfo: {

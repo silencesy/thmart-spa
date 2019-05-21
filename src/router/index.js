@@ -630,10 +630,20 @@ var router = new Router({
             component(resolve) {
                 require.ensure([], () => resolve(require('@/components/Pages/test')), 'test')
             }
+        },
+        {
+            path: "/shareShow",
+            name: "shareShow",
+            meta: {
+                keepAlive: false,
+                MustLogin: false
+            },
+            component(resolve) {
+                require.ensure([], () => resolve(require('@/components/Pages/SharePurchase/ShareShow')), 'ShareShow')
+            }
         }
     ]
 })
-
 // 如果去的页面必须登录
 router.beforeEach((to, from, next) => {
     if (to.meta.MustLogin) {
@@ -647,7 +657,5 @@ router.beforeEach((to, from, next) => {
     } else {
         next();
     }
-
-
 })
 export default router;

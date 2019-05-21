@@ -27,7 +27,9 @@
   </div>
 </template>
 <script>
+import wxMixin from '../../utils/weixinShare.js';
 export default {
+  mixins: [wxMixin],
   data() {
     return {
       closeOnClickModal: false,
