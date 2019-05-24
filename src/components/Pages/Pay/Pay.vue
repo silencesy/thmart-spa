@@ -33,8 +33,10 @@
 	</div>
 </template>
 <script>
+import wxMixin from '../../../utils/weixinShare.js';
 	export default {
 		name: '',
+		mixins: [wxMixin],
 		data () {
 			return {
 				detailData: null,

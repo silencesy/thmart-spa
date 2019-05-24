@@ -23,8 +23,9 @@
                   <i v-else-if="item.status == 3" class="iconfont" slot="titleRight">Shipped</i>
                   <i v-else-if="item.status == 4" class="iconfont" slot="titleRight">Close</i>
                   <i v-else-if="item.status == 6" class="iconfont share-text" slot="titleRight">Share with Your Friend,<br> {{item.number_left}} Vacancy Left</i>
+                  <i v-else-if="item.status == 7" class="iconfont" slot="titleRight">Completed</i>
                   <div class="img-box" slot="content">
-                    <img class="goods-img" v-for="val,index in item.skuList" :src="val.pic" alt="">
+                    <img class="goods-img" v-for="(val,index) in item.skuList" :key="index" :src="val.pic" alt="">
                   </div>
                   <div slot="bottom" class="bottom">
                     <p>
@@ -40,10 +41,14 @@
                      <div v-else-if="item.status == 1">
                       <span @click="UnshippedDetails(item.orderNumber)">Details</span>
                     </div>
-                    <!-- 已支付 -->
-                     <div v-else-if="item.status == 6">
+                    <!-- 已支付拼单 -->
+                    <div v-else-if="item.status == 6">
                       <span @click="UnshippedDetails(item.orderNumber)">Details</span>
                       <span class="share-btn" @click="goSpellShare(item.orderNumber)">Invite Your Friends</span>
+                    </div>
+                    <!-- 已支付拼单完成 -->
+                    <div v-else-if="item.status == 7">
+                      <span @click="UnshippedDetails(item.orderNumber)">Details</span>
                     </div>
                     <!-- 运输中 -->
                      <div v-else-if="item.status == 2">
@@ -70,11 +75,11 @@
           <div class="container" :style="{width:'100%',height:height+'px'}">
             <ScrollView ref="UnpaidScrollView" color="#eee" :open="UnpaidOpen" :pullup="pullup" :height="height" :data="UnpaidData"  @pullingUp="UnpaidGetData">
               <div class="content">
-                <ShopGoodsItem v-for="item,index in UnpaidData" :key="item.orderNumber" iconfontName="icon-dingdanhao">
+                <ShopGoodsItem v-for="item in UnpaidData" :key="item.orderNumber" iconfontName="icon-dingdanhao">
                   <span class="order-number" slot="orderNumber">{{item.orderNumber}}</span>
                   <i class="iconfont" slot="titleRight">Unpaid</i>
                   <div class="img-box" slot="content">
-                    <img class="goods-img" v-for="val,index in item.skuList" :src="val.pic" alt="">
+                    <img class="goods-img" v-for="(val,index) in item.skuList" :key="index" :src="val.pic" alt="">
                   </div>
                   <div slot="bottom" class="bottom">
                     <p>
@@ -96,12 +101,13 @@
           <div class="container" :style="{width:'100%',height:height+'px'}">
             <ScrollView ref="UnshippedScrollView" color="#eee" :open="UnshippedOpen" :pullup="pullup" :height="height" :data="UnshippedData"  @pullingUp="UnshippedGetData">
               <div class="content">
-                <ShopGoodsItem v-for="item,index in UnshippedData" :key="item.orderNumber" iconfontName="icon-dingdanhao">
+                <ShopGoodsItem v-for="item in UnshippedData" :key="item.orderNumber" iconfontName="icon-dingdanhao">
                   <span class="order-number" slot="orderNumber">{{item.orderNumber}}</span>
                   <i v-if="item.status == 1" class="iconfont" slot="titleRight">Unshipped</i>
                   <i v-if="item.status == 6" class="iconfont share-text" slot="titleRight">Share with Your Friend,<br> {{item.number_left}} Vacancy Left</i>
+                  <i v-else-if="item.status == 7" class="iconfont" slot="titleRight">Completed</i>
                   <div class="img-box" slot="content">
-                    <img class="goods-img" v-for="val,index in item.skuList" :src="val.pic" alt="">
+                    <img class="goods-img" v-for="(val,index) in item.skuList" :key="index" :src="val.pic" alt="">
                   </div>
                   <div slot="bottom" class="bottom">
                     <p>
@@ -124,11 +130,11 @@
           <div class="container" :style="{width:'100%',height:height+'px'}">
             <ScrollView ref="ProgressScrollView" color="#eee" :open="ProgressOpen" :pullup="pullup" :height="height" :data="ProgressData"  @pullingUp="ProgressGetData">
               <div class="content">
-                <ShopGoodsItem v-for="item,index in ProgressData" :key="item.orderNumber" iconfontName="icon-dingdanhao">
+                <ShopGoodsItem v-for="item in ProgressData" :key="item.orderNumber" iconfontName="icon-dingdanhao">
                   <span class="order-number" slot="orderNumber">{{item.orderNumber}}</span>
                   <i class="iconfont" slot="titleRight">In Progress</i>
                   <div class="img-box" slot="content">
-                    <img class="goods-img" v-for="val,index in item.skuList" :src="val.pic" alt="">
+                    <img class="goods-img" v-for="(val,index) in item.skuList" :key="index" :src="val.pic" alt="">
                   </div>
                   <div slot="bottom" class="bottom">
                     <p>
@@ -153,7 +159,7 @@
                   <span class="order-number" slot="orderNumber">{{item.orderNumber}}</span>
                   <i class="iconfont" slot="titleRight">Shipped</i>
                   <div class="img-box" slot="content">
-                    <img class="goods-img" v-for="val,index in item.skuList" :src="val.pic" alt="">
+                    <img class="goods-img" v-for="(val,index) in item.skuList" :key="index" :src="val.pic" alt="">
                   </div>
                   <div slot="bottom" class="bottom">
                     <p>

@@ -16,6 +16,9 @@
             <div class="count-down" v-if="flag != 'startSpell'">
                 <count-down :currentTime="Number(shareData.currentTime)" :startTime="Number(shareData.currentTime)" :endTime="Number(shareData.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="' Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''" :isSpell="'yes'"></count-down>
             </div>
+            <div class="spell-line" v-if="flag == 'startSpell'">
+                
+            </div>
             <div class="avatar-list">
                 <img v-for="(item,index) in shareData.headimgurl_array" :key="index" :src="item" alt="">
                 <i v-for="(item,index) in shareData.number_left" :key="index" class="empty">?</i>
@@ -29,7 +32,7 @@
             </div>
             
             <div v-if="flag == 'shareSpell'" class="btn" @click="shareFriend">Invite Your Friends</div>
-            <div v-if="flag == 'startSpell'" class="btn" @click="buyNow('start')">Start Duo Deals</div>
+            <div v-if="flag == 'startSpell'" class="btn" @click="buyNow('start')">Start Duo Deal</div>
             <div v-if="flag == 'joinSpell'" class="btn" @click="buyNow('join')">Join Duo Deals</div>
             <div class="other-share" v-if="flag == 'startSpell' && shareData.spellInfo.spellList!=0">
                 <div class="info2">Or Join Group Buy</div>
@@ -42,7 +45,7 @@
                         <div>
                             <div>Only {{item.number_left}} Vacancy Left</div>
                             <div>
-                                <count-down :currentTime="Number(item.currentTime)" :startTime="Number(item.currentTime)" :endTime="Number(item.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="' Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
+                                <count-down :currentTime="Number(item.currentTime)" :startTime="Number(item.currentTime)" :endTime="Number(item.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="' Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''" :isSpell="'yes'"></count-down>
                             </div>
                         </div>
                         <div>
@@ -1051,5 +1054,8 @@ export default {
 .count-down .container {
     position: relative;
     display: inline-block;
+}
+.spell-line {
+    height: 15px;
 }
 </style>

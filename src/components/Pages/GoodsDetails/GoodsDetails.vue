@@ -2,6 +2,7 @@
 	<div class="goods" v-show="goodsData.id">
 		<img v-if="goodsData.type == 'sale'" class="sale-icon swiper-logo sale" src="static/images/common/sale.png" alt="">
 		<img v-if="goodsData.type == 'group'" class="sale-icon swiper-logo group" src="static/images/common/group.png" alt="">
+		<img v-if="goodsData.type == 'spell'" class="sale-icon swiper-logo group" src="static/images/common/duodeal.png" alt="">
 		<GoodsSwiper :swiperData="goodsData.figure"/>
 		<div class="groupBuy" v-if="goodsData.type == 'group'">
 			<div class="left">
@@ -219,7 +220,7 @@
 					<!-- 拼单商品 -->
 					<div v-if="singleSkuInfo && singleSkuInfo.type == 'spell'">
 						<div class="sku-info-img">
-							<img class="sale-icon" src="static/images/common/sale.png" alt="">
+							<img v-if="isSpellSinglePrice" class="sale-icon" src="static/images/common/duodeal.png" alt="">
 							<img :src="singleSkuInfo.pic" preview="2" alt="">
 						</div>
 						<div class="sku-info-text">

@@ -63,6 +63,7 @@ Axios.interceptors.response.use(
             // Indicator.close();
             // 未传token
             if (res.data.code == 100 || res.data.code == 101 || res.data.code == 102 || res.data.code == 103) {
+                window.localStorage.removeItem("token");
                 router.push({
                     path: "/Login"
                 });
@@ -109,11 +110,11 @@ Axios.interceptors.response.use(
             }
             // 用户不能拼自己发起的单
             if (res.data.code == 123) {
-              Toast('用户不能拼自己发起的单');
+              Toast('You cannot join group buys issued by yourself.');
             }
             // 用户48小时内不能对同一个商品发起两次拼单
             if (res.data.code == 124) {
-              Toast('用户48小时内不能对同一个商品发起两次拼单');
+              Toast('You cannot initiate two group buys for the same item within 48 hours.');
             }
             if (res.data.code == 0) {
                 router.push({
