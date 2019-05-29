@@ -11,6 +11,7 @@
 					<router-link :to="{path: '/GoodsDetails', query: {id:item.id}}" v-if="!shop">
 						<img v-if="item.saleType.type == 'sale'" class="sale-icon" src="static/images/common/sale.png" alt="">
 						<img v-if="item.saleType.type == 'group'" class="sale-icon group" src="static/images/common/group.png" alt="">
+						<img v-if="item.saleType.type == 'spell'" class="sale-icon group" src="static/images/common/duodeal.png" alt="">
 						<div class="img-box">
 							<img v-lazy="item.pic" alt="">
 						</div>
