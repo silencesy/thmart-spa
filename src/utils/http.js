@@ -5,8 +5,8 @@ import qs from 'qs'
 import router from '../router/index'
 promise.polyfill();
 // 正服or测服
-let isFormal = true;
-// let isFormal = false;
+// let isFormal = true;
+let isFormal = false;
 let test = 'http://api.com/thmartApi/';
 let formal = 'http://api.mall.thatsmags.com/thmartApi/';
 const Axios = axios.create({

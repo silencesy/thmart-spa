@@ -56,9 +56,21 @@ exports.install = function(Vue, options) {
     Vue.prototype.loginCallBack = function(response) {
             if (response.data.data.token) {
                 // this.setToken(response.data.data.token);
-                if (localStorage.getItem("goback")) {
-                    window.location.replace(localStorage.getItem("goback"));
-                    localStorage.removeItem("goback");
+                var path = localStorage.getItem("goback");
+                var token = localStorage.getItem("token");
+                if (path) {
+                    if (path.indexOf('uf.thatsmags.com') != -1) {
+                        if (path.indexOf('?') != -1) {
+                            window.location.href = path + '&token=' + token;
+                        } else {
+                            window.location.href = path + '?token=' + token;
+                        }
+                        localStorage.removeItem("goback");
+                    } else {
+                        window.location.replace(localStorage.getItem("goback"));
+                        localStorage.removeItem("goback");
+                    }
+                    
                 } else {
                     this.$router.replace('/');
                 }

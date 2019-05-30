@@ -72,10 +72,30 @@
 		    }
 	  	},
 	  	mounted() {
-				this.alreadyRegistered();
+				this.setGobackUrl();
+				// this.alreadyRegistered();
 	  		this.setLoginGobackUrl();
 	  	},
 		methods: {
+			// 设置回跳地址
+			/**
+			 *  如果有第三方的网站回跳就设置第三方跳转到localstorage
+			 * 如果没有  就读之前原本的后跳地址 如果原来的回跳地址是自己本域名的地址就不做更改 否则就设置为本域名地址的首页
+			 */
+			setGobackUrl() {
+				console.log(this.$route.query.ref)
+				var path = this.$route.query.ref;
+				if(path) {
+					window.localStorage.setItem('goback',path);
+				} else {
+					var oldPath = window.localStorage.getItem('goback');
+					var hostName = window.location.hostname;
+					var origin = window.location.origin;
+					if( oldPath.indexOf(hostName)==-1 ) {
+						window.localStorage.setItem('goback',origin);
+					}
+				}
+			},
 			alreadyRegistered() {
 				var token = localStorage.getItem("token") || null;
 				if(token) {

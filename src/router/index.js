@@ -114,7 +114,7 @@ var router = new Router({
             path: '/Guide',
             name: 'Guide',
             meta: {
-                keepAlive: true
+                keepAlive: false
             },
             component(resolve) {
                 require.ensure([], () => resolve(require('@/components/MainNavigation/Guide')), 'Guide')
