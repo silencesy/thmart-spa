@@ -4,6 +4,7 @@
 			<router-link to='/'>
 				<img src="static/images/common/Mart.svg" alt="">
 			</router-link>
+			<a href="http://uf.thatsmags.com/"><img class="uf-logo" src="static/images/common/uflogo.png" alt=""></a>
 		</div>
 		<div>
 			<slot name="info"></slot>
@@ -28,9 +29,14 @@
 		text-align: center;
 	} 
 	.logo img {
-		width: 83px;
-		height: 90px;
+		width: 53px;
+		height: 60px;
 		margin: 40px 0;
+	}
+	.logo img.uf-logo {
+		width: 210px;
+		height: 48px;
+		margin-left: 5px;
 	}
 	.invest {
 		width: 100%;

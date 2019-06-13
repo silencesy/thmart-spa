@@ -25,69 +25,6 @@ var router = new Router({
     },
     mode: 'history',
     routes: [
-        // {
-        //     path: '/',
-        //     meta: {
-        //         keepAlive: false
-        //     },
-        //     component: BaseHome,
-        //     children: [{
-        //             path: '/',
-        //             name: 'Home',
-        //             component: Home,
-        //             // meta: {
-        //             //     keepAlive: true
-        //             // },
-        //             // component(resolve) {
-        //             //   require.ensure([], () => resolve(require('@/components/MainNavigation/Home')), 'Home')
-        //             // }
-        //         },
-        //         {
-        //             path: '/Categories',
-        //             name: 'Categories',
-        //             // meta: {
-        //             //     keepAlive: true
-        //             // },
-        //             component: Categories
-        //                 // component(resolve) {
-        //                 //   require.ensure([], () => resolve(require('@/components/MainNavigation/Categories')), 'Categories')
-        //                 // }
-        //         },
-        //         {
-        //             path: '/Guide',
-        //             name: 'Guide',
-        //             // meta: {
-        //             //     keepAlive: true
-        //             // },
-        //             component: Guide
-        //                 // component(resolve) {
-        //                 //   require.ensure([], () => resolve(require('@/components/MainNavigation/Guide')), 'Guide')
-        //                 // }
-        //         },
-        //         {
-        //             path: '/Cart',
-        //             name: 'Cart',
-        //             // meta: {
-        //             //     keepAlive: true
-        //             // },
-        //             component: Cart
-        //                 // component(resolve) {
-        //                 //   require.ensure([], () => resolve(require('@/components/MainNavigation/Cart')), 'Cart')
-        //                 // }
-        //         },
-        //         {
-        //             path: '/MyAccount',
-        //             name: 'MyAccount',
-        //             // meta: {
-        //             //     keepAlive: true
-        //             // },
-        //             component: MyAccount
-        //                 // component(resolve) {
-        //                 //   require.ensure([], () => resolve(require('@/components/MainNavigation/MyAccount')), 'MyAccount')
-        //                 // }
-        //         }
-        //     ]
-        // },
         {
             path: '/',
             name: 'Home',

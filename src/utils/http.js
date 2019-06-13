@@ -6,12 +6,12 @@ import router from '../router/index'
 promise.polyfill();
 // 正服or测服
 // let isFormal = true;
-let isFormal = false;
-let test = 'http://api.com/thmartApi/';
-let formal = 'http://api.mall.thatsmags.com/thmartApi/';
+// // let isFormal = false;
+// let test = 'http://api.com/thmartApi/';
+// let formal = 'http://api.mall.thatsmags.com/thmartApi/';
 const Axios = axios.create({
     timeout: 10000,
-    baseURL: isFormal == true ? formal : test,
+    baseURL: process.env.BASE_API,
     headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
     }
@@ -116,11 +116,11 @@ Axios.interceptors.response.use(
             if (res.data.code == 124) {
               Toast('You cannot initiate two group buys for the same item within 48 hours.');
             }
-            if (res.data.code == 0) {
-                router.push({
-                    path: "/error"
-                });
-            }
+            // if (res.data.code == 0) {
+            //     router.push({
+            //         path: "/error"
+            //     });
+            // }
             // 如果返回token就设置token
             if (res.data.data && res.data.data.token) {
                 localStorage.setItem('token', res.data.data.token);
@@ -149,9 +149,9 @@ Axios.interceptors.response.use(
         }
     },
     error => {
-        router.push({
-            path: "/error"
-        });
+        // router.push({
+        //     path: "/error"
+        // });
         // 用户登录的时候会拿到一个基础信息,比如用户名,token,过期时间戳
         // 直接丢localStorage或者sessionStorage
         // if (!window.localStorage.getItem("loginUserBaseInfo")) {
