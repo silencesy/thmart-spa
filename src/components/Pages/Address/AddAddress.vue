@@ -20,11 +20,11 @@
 						<span> {{myAddressProvince}} {{myAddressCity}}</span>
 					</div> -->
 				</div>
-				<div class="address">
+				<div v-if="!isTickting" class="address">
 					<textarea rows="5" v-model='myAddressProvince' placeholder="* Please write down your detailed address in Chinese."> </textarea>
 					<textarea rows="5" v-model='address' placeholder="Please write down your detailed address in English(city name is required)"> </textarea>
 				</div>
-				<div class="addDefault">
+				<div v-if="!isTickting" class="addDefault">
 					<input class="defaultCheckbox" v-model="defaultBtn" type="checkbox" id="item">
 	       			<label for="item">Default</label>
 				</div>
@@ -76,10 +76,15 @@
 		        ],
 		        myAddressProvince:'',
 		        myAddressCity:'',
-		        addrId: ''
+				addrId: '',
+				isTickting: false  //是否是电子票 电子票不显示地址添加
 			}
 		},
+		created() {
+			this.isTicktingFun(); // 设置是否为电子票添加地址
+		},
 		mounted () {
+			
 			if (this.$route.query.id) {
 				this.getOneInfo(this.$route.query.id);
 				this.addrId = this.$route.query.id;
@@ -89,6 +94,13 @@
       		});
 		},
 		methods: {
+			// 设置是否为电子票添加地址
+			isTicktingFun() {
+				console.log(this.$route.query.tickting);
+				if(this.$route.query.tickting == 'true' || this.$route.query.tickting) {
+					this.isTickting = true;
+				}
+			},
 			bindCancel() {
 				this.popupVisible = false;
 				// this.myAddressProvince = '';
@@ -111,7 +123,10 @@
 		        }
       		},
       		submitAddr() {
-      			var that = this;
+				var that = this;
+				if(that.isTickting) {
+					that.myAddressProvince = 'N/A';  //如果是电子票添加地址默认值
+				}
       			if (!that.name) {
       				Toast('Please enter your name!');
       				return false;
@@ -125,7 +140,7 @@
       			} else if (!(/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(that.email))) {
       				Toast('Please enter a valid email address!');
       				return false;
-      			} else if (!that.myAddressProvince) {
+      			} else if (!that.myAddressProvince && !that.isTickting) {
       				Toast('Please write down your detailed address in Chinese!');
       				return false;
       			}

@@ -26,7 +26,7 @@
 		</div> -->
 		<div class="bottom" :class="{top0: dataList.length==0}" v-show="showHide">
 			<!-- <router-link to='/AddAddress'>Add New Shipping Address</router-link> -->
-			<router-link to='/AddAddress'>Add New Shipping Address</router-link>
+			<a @click="addAddress">Add New Shipping Address</a>
 		</div>
 	</div>
 </template>
@@ -53,6 +53,18 @@
 			this.getList();
 		},
 		methods:{
+			addAddress() {
+				console.log(this.$route.query.tickting);
+				if(this.$route.query.tickting) {
+					this.$router.push({
+						name: "AddAddress",query: {
+							tickting: true
+						}
+					});
+				} else {
+					this.$router.push("AddAddress");
+				}
+			},
 			setDefault(id) {
 				var that = this;
 				that.$http.post(that.urls.changeDefault,{

@@ -66,6 +66,10 @@ import { mapState } from 'vuex'
 			groupBuy: {
 				type: Boolean,
 				default: false
+			},
+			doNotJump: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {  
@@ -112,7 +116,9 @@ import { mapState } from 'vuex'
   				this.$router.push({path: 'GoodsList',query: { id: this.bannerId }});
   			} else if (this.bannerId == 'exploreChina') {
 					this.$router.push({path: '/Guide'});
-				} else {
+			} else if (this.doNotJump) {
+				// 什么都不做
+			} else {
   				this.$router.push({path: 'groupBuying'});
   			}
   			

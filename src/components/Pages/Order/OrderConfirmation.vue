@@ -1,6 +1,6 @@
 <template>
 	<div class="OrderConfirmation" v-if="orderConfirmData">
-		<router-link :to="{name:'AddressBook',query:{flag: 'OrderConfirmation'}}" class="address" v-if="!addrList.length==0">
+		<div class="address-info-tip" @click="goAddressList('addressList')" v-if="!addrList.length==0">
 			<div class="info">
 				<div>
 					<p><span>{{addrList[0].fullName}}</span><span>{{addrList[0].phone}}</span></p>
@@ -10,8 +10,8 @@
 				<div class="iconfont icon-combinedshapefuben"></div>
 			</div>
 			<img src="static/images/common/letter.jpg" alt="">
-		</router-link>
-		<router-link :to="{name:'AddAddress'}" class="address" v-if="addrList.length==0">
+		</div>
+		<div class="address-info-tip" @click="goAddressList('addAdress')" v-if="addrList.length==0">
 			<div class="info">
 				<div class="info">
 					<div>
@@ -21,8 +21,7 @@
 				<div class="iconfont icon-combinedshapefuben"></div>
 			</div>
 			<img src="static/images/common/letter.jpg" alt="">
-		</router-link>
-			
+		</div>	
 		<div class="container">
 			<div v-for="(item,index) in orderConfirmData.overReduceArray">
 				<FullReductionSection :shopData="item" :key="index">
@@ -170,6 +169,40 @@
 					this.getDeaflutAddr();
 				}
 			},
+			// 去地址列表页
+			goAddressList(flag) {
+				if(flag == 'addAdress') {
+					if(this.orderConfirmData.isaddress == 2) {
+						this.$router.push({
+							name: "AddAddress",query: {
+								tickting: true
+							}
+						});
+					} else {
+						this.$router.push("AddAddress");
+					}
+				} else if (flag == 'addressList') {
+					if(this.orderConfirmData.isaddress == 2) {
+						this.$router.push({
+							name: "AddressBook",query: {
+								flag: 'OrderConfirmation',
+								tickting: true
+							}
+						});
+					} else {
+						this.$router.push({
+							name: "AddressBook",query: {
+								flag: 'OrderConfirmation'
+							}
+						});
+					}
+					// this.$router.push({
+					// 	name: "AddAddress",query: {
+					// 		flag: 'OrderConfirmation'
+					// 	}
+					// });
+				}
+			},
 			// 如果没有选则就获取地址列表页的地址（第一条地址就是默认地址）
 			getDeaflutAddr() {
 				var that = this;
@@ -270,7 +303,16 @@
 				  showCancelButton: true
 				}).then(action=>{
 					if (action == 'confirm') {
-						that.$router.push("AddAddress");
+						if(that.orderConfirmData.isaddress == 2) {
+							that.$router.push({
+								name: "AddAddress",query: {
+									tickting: true
+								}
+							});
+						} else {
+							that.$router.push("AddAddress");
+						}
+						
 					}		
 				})
 			},
@@ -318,6 +360,11 @@
 	}
 </script>
 <style scoped>
+	.address-info-tip {
+		background-color: #fff;
+		margin-bottom: 10px;
+		padding: 0;
+	}
 	.address {
 		display: block;
 		background: #fff;

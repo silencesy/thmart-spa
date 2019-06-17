@@ -2,7 +2,7 @@
 	<div class="LoginSystem">
 		<div class="logo">
 			<router-link to='/'>
-				<img src="static/images/common/Mart.svg" alt="">
+				<img src="static/images/common/thmart-logo.png" alt="">
 			</router-link>
 			<a href="http://uf.thatsmags.com/"><img class="uf-logo" src="static/images/common/uflogo.png" alt=""></a>
 		</div>
@@ -29,13 +29,11 @@
 		text-align: center;
 	} 
 	.logo img {
-		width: 53px;
-		height: 60px;
+		height: 40px;
 		margin: 40px 0;
 	}
 	.logo img.uf-logo {
-		width: 210px;
-		height: 48px;
+		height: 40px;
 		margin-left: 5px;
 	}
 	.invest {

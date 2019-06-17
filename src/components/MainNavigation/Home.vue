@@ -15,6 +15,7 @@
     </div>
     <!-- deal -->
     <HomeSection :sectionData="homeData.deal" bannerId='17'/>
+    <HomeSection :sectionData="homeData.pditem" doNotJump="Boolean(true)"/>
     <!-- <exploreChina :articleData="homeData.exploreChina" /> -->
     <HomeSection :sectionData="homeData.exploreChina" bannerId='exploreChina'/>
     <!-- group -->
