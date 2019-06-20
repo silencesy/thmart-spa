@@ -108,6 +108,8 @@ exports.install = function(Vue, options) {
         // 一个用户自己不能拼自己的单（商品详情页进行拼单时使用）
         checkTwo: 'OrderSpell/checkTwo',
         // 一个用户48小时内不能对一个商品发起两次拼单
-        checkThree: 'OrderSpell/checkThree'
+        checkThree: 'OrderSpell/checkThree',
+        // 优惠券广告页面
+        discountlist: 'Ads/Home/discountlist'
     }
 };

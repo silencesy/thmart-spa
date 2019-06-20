@@ -365,6 +365,9 @@
 		margin-bottom: 10px;
 		padding: 0;
 	}
+	.address-info-tip img {
+		width: 100%;
+	}
 	.address {
 		display: block;
 		background: #fff;

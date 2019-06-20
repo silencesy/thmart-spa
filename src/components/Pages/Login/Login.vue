@@ -72,7 +72,7 @@
 		    }
 	  	},
 	  	mounted() {
-				this.setGobackUrl();
+			this.setGobackUrl();
 				// this.alreadyRegistered();
 	  		this.setLoginGobackUrl();
 	  	},
@@ -83,10 +83,10 @@
 			 * 如果没有  就读之前原本的后跳地址 如果原来的回跳地址是自己本域名的地址就不做更改 否则就设置为本域名地址的首页
 			 */
 			setGobackUrl() {
-				console.log(this.$route.query.ref)
-				var path = this.$route.query.ref;
-				if(path) {
-					window.localStorage.setItem('goback',path);
+				var url = this.$route.fullPath.substr(11,this.$route.fullPath.length);
+				var finallyUrl = unescape(url);
+				if(finallyUrl) {
+					window.localStorage.setItem('goback',finallyUrl);
 				} else {
 					var oldPath = window.localStorage.getItem('goback');
 					var hostName = window.location.hostname;

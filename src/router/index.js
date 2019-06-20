@@ -106,6 +106,17 @@ var router = new Router({
             }
         },
         {
+          path: "/getCoupon",
+          name: "getCoupon",
+          meta: {
+            keepAlive: false,
+            MustLogin: false
+          },
+          component(resolve) {
+            require.ensure([], () => resolve(require('@/components/Pages/Coupons/getCoupon')), 'getCoupon')
+          }
+        },
+        {
             path: "/WishList",
             name: "WishList",
             meta: {
