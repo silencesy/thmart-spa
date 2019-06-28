@@ -68,7 +68,7 @@ import { mapState } from 'vuex'
 				default: false
 			},
 			doNotJump: {
-				type: Boolean,
+				type: [Boolean,String],
 				default: false
 			}
 		},
@@ -111,7 +111,7 @@ import { mapState } from 'vuex'
   			if(this.shop) {
   				this.$router.push('ShopList');
   			} else if (this.Categories) {
-  				this.$router.push({ path: 'Categories', query: { id: this.bannerId }})
+  				this.$router.push({ path: 'CategoriesGoodsList', query: { id: this.bannerId }})
   			} else if (this.bannerId == 17) {
   				this.$router.push({path: 'GoodsList',query: { id: this.bannerId }});
   			} else if (this.bannerId == 'exploreChina') {

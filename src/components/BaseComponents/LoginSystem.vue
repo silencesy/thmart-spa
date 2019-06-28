@@ -4,7 +4,7 @@
 			<router-link to='/'>
 				<img src="static/images/common/thmart-logo.png" alt="">
 			</router-link>
-			<a href="http://uf.thatsmags.com/"><img class="uf-logo" src="static/images/common/uflogo.png" alt=""></a>
+			<a href="http://www.urban-family.com/"><img class="uf-logo" src="static/images/common/uflogo.png" alt=""></a>
 		</div>
 		<div>
 			<slot name="info"></slot>

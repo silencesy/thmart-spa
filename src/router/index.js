@@ -152,7 +152,7 @@ var router = new Router({
             name: "CouponsGoods",
             meta: {
                 keepAlive: false,
-                MustLogin: true
+                MustLogin: false
             },
             component(resolve) {
                 require.ensure([], () => resolve(require('@/components/Pages/Coupons/CouponsGoods')), 'CouponsGoods')
@@ -278,6 +278,16 @@ var router = new Router({
             component(resolve) {
                 require.ensure([], () => resolve(require('@/components/Pages/GoodsList/GoodsList')), 'GoodsList')
             }
+        },
+        {
+          path: "/CategoriesGoodsList",
+          name: "CategoriesGoodsList",
+          meta: {
+            keepAlive: false
+          },
+          component(resolve) {
+            require.ensure([], () => resolve(require('@/components/Pages/GoodsList/CategoriesGoodsList')), 'CategoriesGoodsList')
+          }
         },
         {
             path: "/groupBuying",

@@ -15,7 +15,7 @@
     </div>
     <!-- deal -->
     <HomeSection :sectionData="homeData.deal" bannerId='17'/>
-    <HomeSection :sectionData="homeData.pditem" doNotJump="Boolean(true)"/>
+    <HomeSection :sectionData="homeData.pditem" doNotJump="doNotJump"/>
     <!-- <exploreChina :articleData="homeData.exploreChina" /> -->
     <HomeSection :sectionData="homeData.exploreChina" bannerId='exploreChina'/>
     <!-- group -->
@@ -61,6 +61,7 @@ export default {
   mixins: [wxMixin],
   data() {  
     return {
+      doNotJump: true,
       // 首页数据
       homeData: {},
       // 加载图标

@@ -375,4 +375,10 @@ export default {
   .v-modal {
       z-index: 998 !important;
   }
+  .explore-china .picker-slot {
+    width: 100% !important;
+  }
+  .GoodsList-container-class .picker-slot {
+    width: 100% !important;
+  }
 </style>

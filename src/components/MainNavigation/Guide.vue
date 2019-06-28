@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="explore-china">
     <div class="top-row">
       <div @click="showDestination">
         <span v-if="!activeDestination">Destination</span> <span v-else>{{activeDestination}}</span> <i class="iconfont icon-jiantou-copy-copy"></i>
@@ -218,5 +218,5 @@ export default {
   .mint-popup.mint-popup-bottom {
     width: 100%;
   }
-
+  
 </style>

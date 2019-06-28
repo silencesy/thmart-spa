@@ -59,6 +59,15 @@ export default {
 }
 </script>
 <style scoped>
+	.small-banner-img-box {
+		background-color: #fff;
+		text-align: center;
+		padding: 20px 0 10px 0;
+	}
+	.small-banner-img-box .banner-img {
+		width: 75%;
+		margin: 0 auto;
+	}
 	.banner-img-box {
 		background-color: #eee;
 		padding-top: 10px;

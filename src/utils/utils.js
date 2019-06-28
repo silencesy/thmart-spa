@@ -59,7 +59,7 @@ exports.install = function(Vue, options) {
                 var path = localStorage.getItem("goback");
                 var token = localStorage.getItem("token");
                 if (path) {
-                    if (path.indexOf('uf.thatsmags.com') != -1) {
+                    if (path.indexOf('urban-family.com') != -1) {
                         if (path.indexOf('?') != -1) {
                             window.location.href = path + '&token=' + token;
                         } else {

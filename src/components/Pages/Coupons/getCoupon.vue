@@ -5,6 +5,7 @@
             <div class="item" v-for="(item,index) in couponData.data" :key="index">
                 <img class="item-img" :src="item.pic" alt="">
                 <img class="received" v-if="item.isdiscount == 1" src="static/images/conpous/lingqu.png" alt="">
+                <span class="btn" @click="bindUseCoupon(item.id)"></span>
                 <button 
                     v-if="item.isdiscount == 0"
                     @click="bindGetCoupon(item.id,index)"
@@ -38,7 +39,10 @@ export default {
     methods: {
         getData() {
             var that = this;
-            that.$http.post(this.urls.discountlist)
+            var params = {
+                id: that.$route.query.id
+            }
+            that.$http.post(this.urls.discountlist,params)
             .then(function (response) {
                 console.log(response);
                 that.couponData = response.data.data
@@ -94,6 +98,15 @@ export default {
     top: 14%;
     width: 20%;
     height: auto;
+}
+.item .btn {
+    position: absolute;
+    bottom: 6%;
+    left: 0;
+    height: 15%;
+    width: 50%;
+    background-color: transparent;
+    z-index: 100;
 }
 .coupon-btn {
     position: absolute;
