@@ -125,7 +125,7 @@ Axios.interceptors.response.use(
             if (res.data.data && res.data.data.token) {
                 localStorage.setItem('token', res.data.data.token);
             }
-            if (res.data.code === 1) {
+            if (res.data.code === 1 || res.data.code === 125) {
                 clearTimeout(showLoading);
                 Indicator.close();
                 return Promise.resolve(res);

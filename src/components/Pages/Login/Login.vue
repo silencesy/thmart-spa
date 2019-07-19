@@ -9,7 +9,7 @@
 	      	<mt-tab-container v-model="selected">
 		      <mt-tab-container-item id="1">
 			      <div class="content">
-							<div class="contentInfo"><input type="text" v-model="passwordNumber" placeholder="Enter phone number"></div>
+							<div class="contentInfo"><input type="text" v-model="passwordNumber" placeholder="Enter phone number or Username"></div>
 							<div class="contentInfo"><input type="password" v-model="passwordPassword" placeholder="Enter password"></div>
 							<div class="tips">
 								<router-link to='/ForgotPassword'>Forgot password?</router-link>
@@ -115,33 +115,34 @@
 			},
 			passwordLogin() {
 				var that = this;
-				var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
 				if(!that.passwordNumber) {
-					Toast('Please enter your number!');
-					return false;
-				} else if (!(/^1[345789]\d{9}$/.test(that.passwordNumber))) {
-					Toast('Please enter a 11-digit valid number!');
+					Toast('Please enter a 11-digit valid phone number or username!');
 					return false;
 				} else if(!that.passwordPassword) {
 					Toast('Please enter your password!');
 					return false;
-				} else if (!reg.test(that.passwordPassword)) {
-					Toast('Please enter your password with 6-16 digits (must contain numbers and letters)!');
-					return false;
 				}
 				// // 表单提交
-				that.$http.post(this.urls.mobileLogin,{
+				that.$http.post(this.urls.userWelogin,{
 			    	mobile: that.passwordNumber,
 			    	password: that.passwordPassword
 			    })
 				.then(function (response) {
-					console.log(response);			
-					that.loginCallBack(response);
+					console.log(response.data.code);			
+					if(response.data.code == 1) {
+						that.loginCallBack(response);
+					} else if (response.data.code == 125) {
+						window.sessionStorage.setItem("mobile",that.passwordNumber);
+						window.sessionStorage.setItem("password",that.passwordPassword);
+						that.$router.push({
+							path: '/thatsBindMobile'
+						})
+					}
+					
 				});
 			},
 			smsLogin() {
 				var that = this;
-				var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
 				if(!that.smsNumber) {
 					Toast('Please enter your number!');
 					return false;
@@ -153,7 +154,7 @@
 					return false;
 				}
 				// // 表单提交
-				that.$http.post(this.urls.mobileLogin,{
+				that.$http.post(this.urls.userWelogin,{
 			    	mobile: that.smsNumber,
 			    	code: that.code
 			    })

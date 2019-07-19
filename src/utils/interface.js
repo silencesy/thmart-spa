@@ -36,6 +36,10 @@ exports.install = function(Vue, options) {
         getCode: 'User/mobileCode',
         // 手机注册
         mobileRegister: 'User/mobileRegister',
+        // 手机号或thats用户名或者验证码登录
+        userWelogin: 'User/welogin',
+        // thats登录补全信息
+        userWeuserupdate: 'User/weuserupdate',
         // 电话号码加密码登录
         mobileLogin: 'User/mobileLogin',
         // 验证码登录

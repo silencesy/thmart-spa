@@ -270,6 +270,16 @@ var router = new Router({
             }
         },
         {
+          path: "/thatsBindMobile",
+          name: "thatsBindMobile",
+          meta: {
+            keepAlive: true
+          },
+          component(resolve) {
+            require.ensure([], () => resolve(require('@/components/Pages/Login/thatsBindMobile')), 'thatsBindMobile')
+          }
+        },
+        {
             path: "/GoodsList",
             name: "GoodsList",
             meta: {
