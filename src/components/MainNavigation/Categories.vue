@@ -8,6 +8,8 @@
         <img :src="item.pic" alt="">
         <div class="line2">{{item.title}}</div>
       </div>
+      <div class="item" v-for="(item,index) in (4-categoryList.length%4)" :key="index">
+      </div>
     </div>
     <GoodsRow :goodsData="hotData">
       <div class="small-banner-img-box" slot="banner-img">
@@ -95,10 +97,6 @@ export default {
   padding: 0 20px;
   justify-content: space-between;
 }
-.category-list:after {
-    content: "";
-    flex: auto;
- }
 .category-list .item {
   width: 21%;
   text-align: center;

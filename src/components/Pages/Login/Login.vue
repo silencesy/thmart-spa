@@ -88,7 +88,7 @@
 				if(finallyUrl) {
 					window.localStorage.setItem('goback',finallyUrl);
 				} else {
-					var oldPath = window.localStorage.getItem('goback');
+					var oldPath = window.localStorage.getItem('goback') || '';
 					var hostName = window.location.hostname;
 					var origin = window.location.origin;
 					if( oldPath.indexOf(hostName)==-1 ) {
