@@ -85,7 +85,7 @@
 			setGobackUrl() {
 				var url = this.$route.fullPath.substr(11,this.$route.fullPath.length);
 				var finallyUrl = unescape(url);
-				if(finallyUrl) {
+				if(finallyUrl.indexOf('urban-family.com') != -1 || finallyUrl.indexOf('urfamily') != -1) {
 					window.localStorage.setItem('goback',finallyUrl);
 				} else {
 					var oldPath = window.localStorage.getItem('goback') || '';
