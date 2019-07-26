@@ -83,6 +83,9 @@
 		<div class="delivery-box" v-if="goodsData.categoryName == 25">
 			<img class="delivery" src="http://api.mall.thatsmags.com/Public/ckfinder/images/special.jpg" alt="">
 		</div>
+		<div class="bottomCode2">
+			<img src="static/images/common/bottom-img.jpg" alt="">
+		</div>
 		<div class="bottomCode">
 			<img src="static/images/common/last.jpg" alt="">
 		</div>
@@ -1604,6 +1607,9 @@
     	box-sizing: border-box;
     	padding: 0 10px;
     }
+	.bottomCode2 img {
+		width: 100%;
+	}
     .coundown-box {
     	position: relative;
     	height: 0;
