@@ -50,8 +50,8 @@
 				<div class="touxiangBox">
 					<div class="touxiang"><router-link to='/Login'><img :src="userInfo.pic" alt=""></router-link></div>
 					<p>
-						<router-link to='/Login'>{{userInfo.data.login}} /</router-link>
-						<router-link to='/SignUp'>{{userInfo.data.signup}}</router-link>
+						<router-link class="login-link" to='/Login'>{{userInfo.data.login}}</router-link>
+						<router-link  class="login-link" to='/SignUp'>{{userInfo.data.signup}}</router-link>
 						<!-- <router-link to='/'>Rain</router-link> -->
 					</p>
 				</div>
@@ -171,6 +171,17 @@
 	}
 	.touxiangBox {
 		padding-top: 15px;
+		color:#fff;
+	}
+
+	.touxiangBox .login-link {
+		border-bottom: 1px solid #fff;
+	}
+	.touxiangBox .login-link:nth-child(1) {
+		/* margin-right: 10px; */
+	}
+	.touxiangBox .login-link:nth-child(2) {
+		margin-left: 12px;
 	}
 	.touxiang {
 		width: 60px;

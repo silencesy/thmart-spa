@@ -17,12 +17,12 @@
 							</div>
 							<div class="contentInfo"><button class="btn" @click="passwordLogin">LOG IN</button></div>
 						</div>
-						<div class="wechat">
-					   	<span class="line"></span>
-					   	<span class="txt">Wechat Login</span>
-					   	<span class="line"></span>
-					   	<a :href="[url]"><i class="iconfont icon-weixin1"></i></a>
-					  </div>
+						<div class="wechat" v-if="isWeiXin">
+							<span class="line"></span>
+							<span class="txt">Wechat Login</span>
+							<span class="line"></span>
+							<a :href="[url]"><i class="iconfont icon-weixin1"></i></a>
+						</div>
 				</mt-tab-container-item>
 				<mt-tab-container-item id="2">
 		        	<div class="content">
@@ -34,7 +34,7 @@
 						</div>
 						<div class="contentInfo"><button class="btn" @click="smsLogin">LOG IN</button></div>
 					</div>
-					<div class="wechat">
+					<div class="wechat" v-if="isWeiXin">
 						<span class="line"></span>
 						<span class="txt">Wechat Login</span>
 						<span class="line"></span>
@@ -58,7 +58,8 @@
 				passwordPassword: '',
 				smsNumber: '',
 				code: '',
-				url: ''
+				url: '',
+				isWeiXin: false,
 			}
 		},
 		components: {
@@ -72,11 +73,20 @@
 		    }
 	  	},
 	  	mounted() {
+			console.log(this.isWeiXinBrowser());
+			this.isWeiXin = this.isWeiXinBrowser();
 			this.setGobackUrl();
-				// this.alreadyRegistered();
 	  		this.setLoginGobackUrl();
 	  	},
 		methods: {
+			isWeiXinBrowser() {
+				var ua = window.navigator.userAgent.toLowerCase();
+				if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+					return true;
+				} else {
+					return false;
+				}
+			},
 			// 设置回跳地址
 			/**
 			 *  如果有第三方的网站回跳就设置第三方跳转到localstorage
