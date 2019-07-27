@@ -86,7 +86,7 @@ Axios.interceptors.response.use(
             }
             // 手机号未注册
             if (res.data.code == 109) {
-                Toast('This phone number has not been registered yet!');
+                Toast('The user with this username/mobile number is not registered!');
             }
             // 手机号登录密码错误
             if (res.data.code == 110) {
