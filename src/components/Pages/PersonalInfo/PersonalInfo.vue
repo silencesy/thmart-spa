@@ -212,6 +212,7 @@
 			},
 			signOut() {
 				localStorage.removeItem("token");
+				localStorage.removeItem("goback");
 				this.$router.push('/')
 			}
 

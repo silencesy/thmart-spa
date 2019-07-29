@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="content">
-				<div class="item" v-for="(item,index) in logisticsData.list">
+				<div class="item" v-for="(item,index) in logisticsData.list" :key="index">
 					<div class="pointer" v-if="index == 0">
 						<img class="first" src="static/images/common/pointer.png" alt="">
 					</div>
