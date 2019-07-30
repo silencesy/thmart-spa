@@ -50,8 +50,8 @@
 				<div class="touxiangBox">
 					<div class="touxiang"><router-link to='/Login'><img :src="userInfo.pic" alt=""></router-link></div>
 					<p>
-						<router-link class="login-link" to='/Login'>{{userInfo.data.login}}</router-link>
-						<router-link  class="login-link" to='/SignUp'>{{userInfo.data.signup}}</router-link>
+						<a class="login-link" @click="bindLogin" to='/Login'>{{userInfo.data.login}}</a>
+						<a class="login-link" @click="bindSignUp" to='/SignUp'>{{userInfo.data.signup}}</a>
 						<!-- <router-link to='/'>Rain</router-link> -->
 					</p>
 				</div>
@@ -145,6 +145,17 @@
 			BottomBar: r => { require.ensure([], () => r(require('../BaseComponents/BottomBar')), 'BottomBar') }
 		},
 	  methods: {
+		  // 跳转登录
+		bindLogin() {
+			// 设置回跳地址
+			this.setlocalStorage("goback",window.location.href);
+			this.$router.push({name: 'Login'});
+		},
+		bindSignUp() {
+			// 设置回跳地址
+			this.setlocalStorage("goback",window.location.href);
+			this.$router.push({name: 'SignUp'});
+		},
 	  	getUserInfo() {
 			var that = this;
 			that.$http.post(that.urls.userDetail)
@@ -176,9 +187,6 @@
 
 	.touxiangBox .login-link {
 		border-bottom: 1px solid #fff;
-	}
-	.touxiangBox .login-link:nth-child(1) {
-		/* margin-right: 10px; */
 	}
 	.touxiangBox .login-link:nth-child(2) {
 		margin-left: 12px;

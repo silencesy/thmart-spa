@@ -614,6 +614,9 @@ var router = new Router({
 })
 // 如果去的页面必须登录
 router.beforeEach((to, from, next) => {
+    if(to.query.token) {
+        localStorage.setItem("token", to.query.token);
+    }
     if (to.meta.MustLogin) {
         var token = localStorage.getItem("token") || null;
         if (token) {
