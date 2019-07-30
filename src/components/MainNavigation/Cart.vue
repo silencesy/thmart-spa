@@ -1,7 +1,7 @@
 <template>  
   <div class="Cart">  
     <div class="cart-container" v-show="showGoods">
-    	<div class="shop-item" v-for="(item,index) in dataList">
+    	<div class="shop-item" v-for="(item,index) in dataList" :key="index">
     		<div class="title">
     			<div class="item-input" @click="shopAll(item.brandId,item.shopAll)">
 					<img class="checkbox-img" v-show="item.shopAll" src="../../assets/images/check.png" alt="">
@@ -17,7 +17,7 @@
 		    	</div>
     		</div> 
 			<div class="goods-container">
-    			<div class="goods-item" v-for="(goodsval,index) in item.data">
+    			<div class="goods-item" v-for="(goodsval,index) in item.data" :key="index">
     				<div class="item-input goods-input" @click="selectGoods(goodsval,item.brandId)">
 						<img class="checkbox-img" v-show="goodsval.isSelect" src="../../assets/images/check.png" alt="">
 						<i class="not-select" v-show="!goodsval.isSelect"></i>
@@ -31,7 +31,7 @@
     					<router-link :to="{path: 'GoodsDetails', query: {id:goodsval.goodsId}}">
 	    					<div class="name">{{goodsval.goodsName}}</div>
 	    					<div class="flag">
-	    						<span v-for="(val,key) in goodsval.prop">{{val[0]}}</span>
+	    						<span v-for="(val,key) in goodsval.prop" :key="key">{{val[0]}}</span>
 	    					</div>
 	    					<div class="reduction" v-show="goodsval.over">
 	    						{{goodsval.reduce}} less per {{goodsval.over}} purchase

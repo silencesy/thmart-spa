@@ -21,7 +21,7 @@
 		</HomeSwiper>
 		<!-- 轮播结束 -->
 		<div class="content">
-			<div v-for="(item,index) in shopData.content">
+			<div v-for="(item,index) in shopData.content" :key="index">
 				<a :href="[item.url]">
 					<img :src="item.pic" alt="">
 				</a>

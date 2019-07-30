@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<div class="container" v-if="logisticsData">
+	<div v-if="logisticsData">
+		<div class="container" v-if="logisticsData.status == 1">
 			<div class="title">
 				<div>
 					logistics: {{$route.query.logistics}}
@@ -24,9 +24,18 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="nologisticsData" class="nologisticsData">
+		<!-- <div v-if="nologisticsData" class="nologisticsData">
 			<p>Your parcel is still in preparation,</p>
 			<p>please be patient!</p>
+		</div> -->
+		<div v-if="logisticsData.status == 126" class="nologisticsData">
+			<p>{{logisticsData.msg}}</p>
+		</div>
+		<div v-if="logisticsData.status == 127" class="nologisticsData">
+			<p>{{logisticsData.msg}}</p>
+		</div>
+		<div v-if="logisticsData.status == 128" class="nologisticsData">
+			<p>{{logisticsData.msg}}</p>
 		</div>
 	</div>
 </template>
@@ -49,7 +58,11 @@
 	  				company: that.$route.query.company
 	  			})
 		        .then(function (response) {
-		        	that.logisticsData = response.data.data
+					var data = response.data.data;
+					if(data.status==1) {
+						data.list = data.list.reverse();
+					}
+		        	that.logisticsData = data;
 		        })
 		        .catch(function (error) {
 		          	that.nologisticsData = true;
@@ -119,5 +132,7 @@
 	.nologisticsData p {
 		text-align: center;
 		color: #777;
+		line-height: 30px;
+		padding: 10px;
 	}
 </style>

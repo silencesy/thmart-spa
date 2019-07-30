@@ -1,7 +1,7 @@
 <template>
 	<div class="AddressBook">
 		<div class="fix">
-			<div v-for="(item,index) in dataList" class="addressPer">
+			<div v-for="(item,index) in dataList" :key="index" class="addressPer">
 				<div class="addList" @click="chooseAddr(item.id)">
 					<p>{{item.fullName}}</p>
 					<p>{{item.phone}}</p>
@@ -234,9 +234,6 @@
     width: 100%;
     height: 100%;
     display: inline-block;
-  }
-  .fix .addressPer:last-child {
-	/*margin-bottom: 80px;*/
   }
   .dispalyblock {
   	display: block;

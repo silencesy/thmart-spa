@@ -176,7 +176,14 @@
 				var that = this;
 				that.$http.post(that.urls.userDetail)
 				.then(function (response) {
-					that.userInfo = response.data.data;
+					// 处理后台返回头像多了域名的问题
+					var data = response.data.data;
+					if(!data.data) {
+						if(data.pic.indexOf('thirdwx.qlogo.cn') != -1) {
+							data.pic = data.pic.replace('http://api.mall.thatsmags.com','');
+						}
+					}
+					that.userInfo = data;
 				});
 			},
 			// 压缩图片

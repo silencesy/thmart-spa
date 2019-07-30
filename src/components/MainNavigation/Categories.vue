@@ -4,11 +4,11 @@
       <SearchTop />
     </div>
     <div class="category-list">
-      <div class="item" v-for="(item,index) in categoryList" @click="bindGoDetails(item.id)" :key="index">
+      <div class="item" v-for="item in categoryList" @click="bindGoDetails(item.id)" :key="item.id">
         <img :src="item.pic" alt="">
         <div class="line2">{{item.title}}</div>
       </div>
-      <div class="item" v-for="(item,index) in (4-categoryList.length%4)" :key="index">
+      <div class="item" v-for="item in (4-categoryList.length%4)" :key="item.id">
       </div>
     </div>
     <GoodsRow :goodsData="hotData">

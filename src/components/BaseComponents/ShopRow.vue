@@ -1,7 +1,7 @@
 <template>
 	<div class="ShopRow">
 		<ul class="shop-container">
-			<li class="shop-item" v-for="(item,index) in shopData" @click="goShop(item)">
+			<li class="shop-item" v-for="(item,index) in shopData" :key="index" @click="goShop(item)">
 				<div class="img-box">
 					<img v-lazy="item.pic" alt="">
 				</div>
@@ -54,12 +54,6 @@
 		border: 1px solid #dfdfdf;
 		overflow: hidden !important;
 		background: #fff;
-	}
-	.shop-container .shop-item:nth-child(2n-1) {
-		/*border-right: 7px solid #eee;*/
-	}
-	.shop-container .shop-item:nth-child(2n) {
-		/*border-left: 7px solid #eee;*/
 	}
 	.shop-container .shop-item img {
 		width: 100%;

@@ -1,6 +1,6 @@
 <template>
 	<div class="ShopGoodsItem">
-		<div v-for="(item,index) in shopData.data">
+		<div v-for="(item,index) in shopData.data" :key="index">
 			<div class="title">
 				<a>
 					<i class="iconfont icon-shanghu1"></i>
@@ -11,14 +11,14 @@
 				</div>
 			</div>
 			<div class="content">
-				<div class="goods" v-for="(item2,index) in item.data">
+				<div class="goods" v-for="(item2,index) in item.data" :key="index">
 					<div>
 						<img v-lazy="item2.pic" alt="">
 					</div>
 					<div class="goodsRight">
 						<p class="line2">{{item2.goodsName}}</p>
 						<p>
-							<span v-for="(item3,index) in item2.prop">{{item3[0]}}</span>
+							<span v-for="(item3,index) in item2.prop" :key="index">{{item3[0]}}</span>
 						</p>
 						<p>
 							<span>¥{{item2.price}}</span>

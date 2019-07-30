@@ -1,50 +1,5 @@
 <template>  
   <div class="MyAccount">  
-<!--   	<div class="title">
-	    <div class="touxiang"> 
-				<img src="static/images/common/home-cover.png" alt="">
-				<span>xiaoxiedai</span>
- 			</div>
-	  	<router-link to="/" class="edit">Edit</router-link>
-		</div>
-		<div class="state">
-			<router-link to="/" class="stateTitle">
-				<div>Orders</div>
-				<div>All <span class="iconfont icon-combinedshapefuben"></span></div>
-			</router-link>
-			<div class="status">
-				<router-link to="/">
-					<span class="iconfont icon-daifukuan"></span>
-					<p>Unpaid</p>
-				</router-link>
-				<router-link to="/">
-					<span class="iconfont icon-fahuo"></span>
-					<p>Paid</p>
-				</router-link>
-				<router-link to="/">
-					<span class="iconfont icon-daishouhuo"></span>
-					<p>Shipped</p>
-				</router-link>
-			</div>
-		</div>
-		<div class="myItem">
-			<router-link to="/AddressBook">
-				<span class="iconfont icon-shouhuodizhi"></span>
-				<p>Address Book</p>
-			</router-link>
-			<router-link :to="{name: 'WishList',params: {GoodsId:'123123'}}">
-				<span class="iconfont icon-shoucang"></span>
-				<p>Wishlist</p>
-			</router-link>
-			<router-link to="/CouponsList">
-				<span class="iconfont icon-youhuiquan"></span>
-				<p>thMart-Coupons</p>
-			</router-link>
-			<router-link to="/Contact">
-				<span class="iconfont icon-shouhou"></span>
-				<p>Customer Service</p>
-			</router-link>
-		</div> -->
 		<div class="accountTop">
 			<div v-if="userInfo.data">
 				<div class="touxiangBox">
@@ -160,7 +115,15 @@
 			var that = this;
 			that.$http.post(that.urls.userDetail)
 			.then(function (response) {
-				that.userInfo = response.data.data;
+
+				// 处理后台返回头像多了域名的问题
+				var data = response.data.data;
+				if(!data.data) {
+					if(data.pic.indexOf('thirdwx.qlogo.cn') != -1) {
+						data.pic = data.pic.replace('http://api.mall.thatsmags.com','');
+					}
+				}
+				that.userInfo = data;
 			});
 		}
 	  }

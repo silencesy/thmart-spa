@@ -1,5 +1,5 @@
 <template>
-	<div class="goods" v-show="goodsData.id">
+	<div class="goods" v-if="goodsData.id">
 		<img v-if="goodsData.type == 'sale'" class="sale-icon swiper-logo sale" src="static/images/common/sale.png" alt="">
 		<img v-if="goodsData.type == 'group'" class="sale-icon swiper-logo group" src="static/images/common/group.png" alt="">
 		<img v-if="goodsData.type == 'spell'" class="sale-icon swiper-logo group" src="static/images/common/duodeal.png" alt="">
@@ -346,6 +346,8 @@
 		name: 'goods',
 		data() {
 			return {
+				// 评论默认为0
+				reviewsNumber: 0,
 				// 拼单id
 				spellId: null,
 				// 是否显示拼单单个sku价格
@@ -1549,11 +1551,10 @@
     .coupon-list .item p:nth-child(1) span:nth-child(2) {
     	background-color: #F9421E;
     	color: #fff;
-    	display: inline-block;
     	padding: 3px 10px;
     	font-size: 14px;
     	border-radius: 16px;
-    	/* float: right; */
+    	float: right;
     }
     .coupon-list .item p:nth-child(1) span.collected {
     	background-color: #ccc;

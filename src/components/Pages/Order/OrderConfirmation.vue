@@ -23,7 +23,7 @@
 			<img src="static/images/common/letter.jpg" alt="">
 		</div>	
 		<div class="container">
-			<div v-for="(item,index) in orderConfirmData.overReduceArray">
+			<div v-for="(item,index) in orderConfirmData.overReduceArray" :key="index">
 				<FullReductionSection :shopData="item" :key="index">
 					<!-- <i class="iconfont icon-combinedshapefuben" slot="titleRight"></i> -->
 					<div slot="bottom" class="bottom">
@@ -38,7 +38,7 @@
 					</div>
 				</FullReductionSection>
 			</div>
-			<div v-for="(item,index) in orderConfirmData.brandArray">
+			<div v-for="(item,index) in orderConfirmData.brandArray" :key="index">
 				<ShopGoodsItem :shopData="item" :key="index">
 					<!-- <i class="iconfont icon-combinedshapefuben" slot="titleRight"></i> -->
 					<div slot="bottom" class="bottom">
@@ -105,7 +105,7 @@
 		  		<div class="coupons-content">
 		  			<div class="title">thMart-Coupons</div>
 		  			<div class="list">
-		  				<div class="list-item" v-for="item in orderConfirmData.userCouponList" @click="changeChooseCoupons(item.couponId)">
+		  				<div class="list-item" v-for="(item,index) in orderConfirmData.userCouponList" @click="changeChooseCoupons(item.couponId)" :key="index">
 		  					<div class="Coupons-name">{{item.name}}</div>
 		  					<div class="Coupons-input" v-if="!item.checked">
 		  						<i></i>
@@ -456,9 +456,6 @@
 		width: 150px;
 		height: 36px;
 		line-height: 36px;
-	}
-	.container {
-		/*margin-bottom: 55px;*/
 	}
 	.fee {
 		padding-right: 27px;

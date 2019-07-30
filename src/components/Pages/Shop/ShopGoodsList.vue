@@ -1,7 +1,7 @@
 <template>
 	<div class="ShopGoodsList">
 		<div class="title">
-			<div :class="{active: item.active}" v-for="(item,index) in titleArr" @click="titleChange(item)">{{item.name}}</div>
+			<div :class="{active: item.active}" v-for="(item,index) in titleArr" :key="index" @click="titleChange(item)">{{item.name}}</div>
 		</div>
 		<Sort ref="Sort" @Sort="Sort" backgroundColor="#eee"/>
 		<div class="line"></div>
