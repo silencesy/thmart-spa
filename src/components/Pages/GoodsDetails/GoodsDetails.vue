@@ -146,11 +146,11 @@
 							<img :src="goodsData.pic" preview="2" alt="">
 						</div>
 						<div class="sku-info-text">
-							<p class="price theme_color" v-if="isSpellSinglePrice && goodsData.minPrice != goodsData.maxPrice">￥{{goodsData.minPrice}} - ￥{{goodsData.singleBuyPriceMax}}</p>
-							<p class="price theme_color" v-if="isSpellSinglePrice && goodsData.minPrice == goodsData.maxPrice">￥{{goodsData.minPrice}}</p>
-							<p class="price theme_color" v-if="!isSpellSinglePrice && goodsData.minPrice != goodsData.maxPrice">￥{{goodsData.singleBuyPrice}} - ￥{{goodsData.maxPrice}}</p>
-							<p class="price theme_color" v-if="!isSpellSinglePrice && goodsData.minPrice == goodsData.maxPrice">￥{{goodsData.singleBuyPrice}}</p>
-							<p class="chooseattr line1">Please select goods222</p>
+							<p class="price theme_color" v-if="isSpellSinglePrice && goodsData.minPrice != goodsData.singleBuyPriceMax">￥{{goodsData.minPrice}} - ￥{{goodsData.singleBuyPriceMax}}</p>
+							<p class="price theme_color" v-if="isSpellSinglePrice && goodsData.minPrice == goodsData.singleBuyPriceMax">￥{{goodsData.minPrice}}</p>
+							<p class="price theme_color" v-if="!isSpellSinglePrice && goodsData.singleBuyPrice != goodsData.maxPrice">￥{{goodsData.singleBuyPrice}} - ￥{{goodsData.maxPrice}}</p>
+							<p class="price theme_color" v-if="!isSpellSinglePrice && goodsData.singleBuyPrice == goodsData.maxPrice">￥{{goodsData.singleBuyPrice}}</p>
+							<p class="chooseattr line1">Please select goods</p>
 							<p class="stock">Stock: {{goodsData.sumStock}}</p>
 							<i class="iconfont icon-guanbi" @click="close"></i>
 						</div>

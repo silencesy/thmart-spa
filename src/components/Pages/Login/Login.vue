@@ -156,7 +156,7 @@
 				if(!that.smsNumber) {
 					Toast('Please enter your number!');
 					return false;
-				} else if (!(/^1[345789]\d{9}$/.test(that.smsNumber))) {
+				} else if (!(/^1[23456789]\d{9}$/.test(that.smsNumber))) {
 					Toast('Please enter a 11-digit valid number!');
 					return false;
 				} else if(!that.code) {
