@@ -116,6 +116,12 @@ Axios.interceptors.response.use(
             if (res.data.code == 124) {
               Toast('You cannot initiate two group buys for the same item within 48 hours.');
             }
+            if (res.data.code == 129) {
+                Toast('Sorry, the coupon collection is closed now.');
+            }
+            if (res.data.code == 130) {
+                Toast('The coupon is expired.');
+            }
             // if (res.data.code == 0) {
             //     router.push({
             //         path: "/error"
