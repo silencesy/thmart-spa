@@ -11,10 +11,13 @@ import http from "./utils/http"
 // 自定义工具库
 import utils from "./utils/utils"
 
+import httptwo from "./utils/httpTwo"
+
 // api地统一址入口
 import urls from "./utils/interface"
 Vue.use(urls);
 Vue.use(http);
+Vue.use(httptwo);
 Vue.use(utils);
 
 // 剪切板插件

@@ -609,6 +609,17 @@ var router = new Router({
             component(resolve) {
                 require.ensure([], () => resolve(require('@/components/Pages/SharePurchase/ShareShow')), 'ShareShow')
             }
+        },
+        {
+            path: "/hx",
+            name: "hx",
+            meta: {
+                keepAlive: false,
+                MustLogin: false
+            },
+            component(resolve) {
+                require.ensure([], () => resolve(require('@/components/Pages/reviewConsumption/hx')), 'hx')
+            }
         }
     ]
 })

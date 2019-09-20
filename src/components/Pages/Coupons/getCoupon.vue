@@ -66,8 +66,13 @@ export default {
         },
         // 优惠券列表页 
         bindUseCoupon(id) {
-            this.$router.push({path: '/CouponsGoods',query:{id: id}})
-            // this.$router.push({name: 'userCenter-coupons-id',params: {id: id}});
+            let that = this;
+            if (!that.getToken()) {
+                that.setlocalStorage("goback",window.location.href);
+                that.$router.push({name: 'Login'});
+            } else {
+                that.$router.push({path: '/CouponsGoods',query:{id: id}})
+            }
         }
     }
 }
