@@ -15,6 +15,14 @@
 			<ShopGoodsItem v-for="(item,index) in OrderDetailsData.data.brand" :key="index" :shopData="item" :showReviews="showReviews" :showLogistics="showLogistics">
 				
 			</ShopGoodsItem>
+			<div v-for="(item,index) in OrderDetailsData.data.ticketqrs" :key="index" class="qr">
+				<div>
+					Please show your QR code to the ticketing staff on site.
+				</div>
+				<div>
+					<img preview="1" :src="item.pic" alt="">
+				</div>
+			</div>
 			<div class="bottom">
 				<p>
 					<span>&nbsp;</span>
@@ -123,6 +131,28 @@
 		color: #666;
 		font-size: 14px;
 	}
+	.qr {
+		background: #fff;
+		margin: 10px;
+		border-radius: 4px;
+		overflow: hidden;
+		padding: 10px;
+		border: 1px solid #dfdfdf;
+		display: flex;
+	}
+	.qr > div:nth-child(1){
+		flex: 3;
+		align-self: center;
+	}
+	.qr > div:nth-child(2){
+		flex: 1;
+		text-align: right;
+	}
+	.qr > div:nth-child(2) img {
+		width: 50px;
+		height: 50px;
+		float: right;
+	}
 	.bottom {
 		background: #fff;
 		margin: 0 10px;
@@ -148,10 +178,10 @@
 	}
 	.bottom > p b {
 		font-style: normal;
-    font-weight: 400;
-    color: #666;
-    padding-left: 5px;
-    font-size: 14px;
+		font-weight: 400;
+		color: #666;
+		padding-left: 5px;
+		font-size: 14px;
 	} 
 	.date {
 		display: flex;
@@ -165,13 +195,13 @@
 	}
 	.date div:nth-child(2) {
 		border: 1px solid #dfdfdf;
-    width: 70px;
-    height: 30px;
-    text-align: center;
-    border-radius: 20px;
-    line-height: 30px;
-    color: #666;
-    font-size: 14px;
+		width: 70px;
+		height: 30px;
+		text-align: center;
+		border-radius: 20px;
+		line-height: 30px;
+		color: #666;
+		font-size: 14px;
 	}
 	.date div:first-child p {
 		line-height: 25px;

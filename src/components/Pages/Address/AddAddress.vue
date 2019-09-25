@@ -29,8 +29,9 @@
 	       			<label for="item">Default</label>
 				</div>
 			</div>
-			<div style="height: 50px;"></div>
+			<div style="height: 30px;"></div>
 			<div class="bottom" @click="submitAddr">Submit</div>
+			<div style="height: 30px;"></div>
 		</div>
 		<mt-popup
 			v-model="popupVisible"
@@ -260,16 +261,10 @@
 		padding-bottom: 20px;
 	}
 	.bottom {
-		position: fixed;
-	    display: block;
 	    height: 36px;
 	    line-height: 36px;
 	    background: #F9421E;
-	    top: auto;
-	    bottom: 10px;
-	    left: 0;
-	    right: 0;
-	    margin: auto;
+	    margin: 0 auto;
 	    color: #fff;
 	    max-width: 730px;
 	    width: 95%;
