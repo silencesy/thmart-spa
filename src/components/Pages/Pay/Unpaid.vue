@@ -26,9 +26,13 @@
 					<span>Address:</span>
 					<span>{{detailData.province}}{{detailData.city}}{{detailData.regionDetail}}</span>
 				</div>
-				<div class="payList">
+				<div class="payList price">
 					<span>Final Price：</span>
 					<span>¥ {{detailData.priceTotal}}</span>
+				</div>
+				<div class="payList" v-if="detailData.buyerRemark != 0">
+					<span>Remark：</span>
+					<span>{{detailData.buyerRemark}}</span>
 				</div>
 				<div class="btn-group">
 					<span @click="pay">Continue To Pay</span>
@@ -93,7 +97,7 @@
 	.info .payList:first-child span:nth-child(2) {
 		color: #F9421E;
 	}
-	.info .payList:last-child span:nth-child(2) {
+	.info .payList.price span:nth-child(2) {
 		color: #F9421E;
 	}
 	.btn-group {

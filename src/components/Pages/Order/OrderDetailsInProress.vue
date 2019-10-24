@@ -6,6 +6,7 @@
 					<p>Order No. :<span>{{OrderDetailsData.orderNumber}}</span></p>
 					<p>Ordered :<span>{{OrderDetailsData.orderTime}}</span></p>
 					<p v-if="OrderDetailsData.sendTime != 0">Delivered :<span>{{OrderDetailsData.sendTime}}</span></p>
+					<p v-if="OrderDetailsData.buyerRemark!=0">Remark :<span>{{OrderDetailsData.buyerRemark}}</span></p>
 				</div>
 				<div v-clipboard:copy="OrderDetailsData.orderNumber" v-clipboard:success="onCopy"
       v-clipboard:error="onError">Copy</div>

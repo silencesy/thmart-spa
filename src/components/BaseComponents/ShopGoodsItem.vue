@@ -29,7 +29,15 @@
 					</div>
 				</div>
 				<div v-if="showLogistics" class="logistics-box" >
-					<span class="logistics" @click="logistics(item.company,item.logistics)">Tracking your order</span><span v-if="showReviews" class="logistics review-btn" @click="bindAddRevies(item.id,item.hasComment)">Review</span>
+					<div class="logistics-info" v-if="item.company == 'mail'">
+						We just sent the email, please kindly check your mailbox.
+					</div>
+					<div class="logistics-info" v-else-if="item.company == 'tk'">
+						We have received your refund request, and you will be able to receive it within two business days.
+					</div>
+					<div v-else>
+						<span class="logistics" @click="logistics(item.company,item.logistics)">Tracking your order</span><span v-if="showReviews" class="logistics review-btn" @click="bindAddRevies(item.id,item.hasComment)">Review</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -170,9 +178,13 @@
 		font-size: 14px;
 	}
 	.logistics-box {
-		height: 30px;
 		line-height: 30px;
 		padding-bottom: 10px;
+		overflow: hidden;
+	}
+	.logistics-box .logistics-info {
+		line-height: 22px;
+		color: #F9421E;
 	}
 	.logistics {
 		float: right;

@@ -5,11 +5,21 @@
 				<div>Total:<span> ¥{{OrderDetailsData.priceTotal}}</span></div>
 				<div @click="pay"><a>Pay</a></div>
 			</div>
+			<div class="date" slot="date">
+				<div>
+					<p>Order No. :<span>{{OrderDetailsData.orderNumber}}</span></p>
+					<p>Ordered :<span>{{OrderDetailsData.orderTime}}</span></p>
+					<p v-if="OrderDetailsData.buyerRemark!=0">Remark :<span>{{OrderDetailsData.buyerRemark}}</span></p>
+				</div>
+				<div v-clipboard:copy="OrderDetailsData.orderNumber" v-clipboard:success="onCopy"
+      v-clipboard:error="onError">Copy</div>
+			</div>
 		</OrderDetails>
 
 	</div>
 </template>
-<script>	
+<script>
+	import { Toast } from 'mint-ui';
 	export default {
 		name: 'OrderDetailsUnpaid',
 		data() {
@@ -45,7 +55,13 @@
 		        } else {
 		          window.location.href = window.location.origin + '/Pay?orderNumber=' + orderNumber;
 		        }
-			}
+			},
+			onCopy: function (e) {
+		    	Toast('Successful!');
+			},
+		    onError: function (e) {
+		      
+		    }
 		}
 	}
 </script>

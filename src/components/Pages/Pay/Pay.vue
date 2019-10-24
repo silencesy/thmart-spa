@@ -22,10 +22,14 @@
 					<span>Address:</span>
 					<span>{{detailData.province}}{{detailData.city}}{{detailData.regionDetail}}</span>
 				</div>
-				<div class="payList">
+				<div class="payList price">
 					<span>Final Price：</span>
 					<span>¥ {{detailData.priceTotal}}</span>
-				</div>		
+				</div>
+				<div class="payList" v-if="detailData.buyerRemark != 0">
+					<span>Remark：</span>
+					<span>{{detailData.buyerRemark}}</span>
+				</div>			
 			</div>
 			<div class="alipayBtn" @click="alipay"><img src="static/images/common/alipay.svg" alt=""></div>
 			<div class="wechatBtn" @click="wechatPay" v-if="isWeiXinShow"><img src="static/images/common/wechat.svg" alt=""></div>
@@ -170,7 +174,7 @@ import wxMixin from '../../../utils/weixinShare.js';
 	.payList span:nth-child(2) {
 		width: 66%;
 	}
-	.info .payList:last-child span:nth-child(2) {
+	.info .payList.price span:nth-child(2) {
 		color: #F9421E;
 	}
 	.alipayBtn {

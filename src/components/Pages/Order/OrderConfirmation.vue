@@ -125,7 +125,7 @@
 	</div>
 </template>
 <script>
-	import { MessageBox,Popup } from 'mint-ui';
+	import { MessageBox,Popup,Toast } from 'mint-ui';
 	export default {
 		name: 'OrderConfirmation',
 		data() {
@@ -258,6 +258,10 @@
 				// 如果没有地址不能下单
 				if (that.addrList.length==0) {
 					that.layer();
+					return false;
+				}
+				if (that.orderConfirmData.isaddress==1&&that.addrList[0].province=='N/A') {
+					Toast('Please fill in your detailed address information!');
 					return false;
 				}
 				
