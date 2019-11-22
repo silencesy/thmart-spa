@@ -12,8 +12,14 @@
 			</div>
 		</div>
 		<div class="container">
-			<ShopGoodsItem v-for="(item,index) in OrderDetailsData.data.brand" :key="index" :shopData="item" :showReviews="showReviews" :showLogistics="showLogistics">
-				
+			<ShopGoodsItem 
+				v-for="(item,index) in OrderDetailsData.data.brand" 
+				:key="index" 
+				:shopData="item" 
+				:showReviews="showReviews" 
+				:showLogistics="showLogistics" 
+				:showConfirm="showConfirm">
+				@reloadData="reloadData1"
 			</ShopGoodsItem>
 			<div v-for="(item,index) in OrderDetailsData.data.ticketqrs" :key="index" class="qr">
 				<div>
@@ -62,6 +68,10 @@
 				default: false
 			},
 			showReviews: {
+				type: Boolean,
+				default: false
+			},
+			showConfirm: {
 				type: Boolean,
 				default: false
 			}

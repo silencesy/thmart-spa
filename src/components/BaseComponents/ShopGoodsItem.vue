@@ -36,7 +36,11 @@
 						We have received your refund request, and you will be able to receive it within two business days.
 					</div>
 					<div v-else>
-						<span class="logistics" @click="logistics(item.company,item.logistics)">Tracking your order</span><span v-if="showReviews" class="logistics review-btn" @click="bindAddRevies(item.id,item.hasComment)">Review</span>
+						<span 
+							class="logistics theme_color" 
+							v-if="showConfirm && !item.confirmtime" @click="confirmReceipt(item)">Delivery Confirmed</span>
+						<span class="logistics review-btn" @click="logistics(item.company,item.logistics)">Tracking your order</span><span v-if="showReviews" class="logistics review-btn" @click="bindAddRevies(item.id,item.hasComment)">Review</span>
+						
 					</div>
 				</div>
 			</div>
@@ -70,6 +74,10 @@
 			showReviews: {
 				type: Boolean,
 				default: false
+			},
+			showConfirm: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {
@@ -98,6 +106,24 @@
 						}
 					})
 				}
+			},
+			confirmReceipt(item) {
+				
+				var that = this;
+				let params = {
+					orderNumber: that.$route.query.orderNumber,
+					id: item.id
+				}
+		        that.$http.post(that.urls.ordersskuconfirm,params)
+		        .then(function (response) {
+					that.$toast("successfully!");
+					setTimeout(() => {
+						window.location.reload();
+					}, 2000);
+		        })
+		        .catch(function (error) {
+		          console.log(error);
+		        });
 			}
 		}
 	}

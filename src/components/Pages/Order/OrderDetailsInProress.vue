@@ -1,6 +1,11 @@
 <template>
 	<div class="OrderDetailsUnpaid" v-if="OrderDetailsData">
-		<OrderDetails :OrderDetailsData= 'OrderDetailsData' :styleObj="styleObj" :showLogistics="showLogistics">
+		<OrderDetails 
+			@loadData="loadData"
+			:OrderDetailsData= 'OrderDetailsData' 
+			:styleObj="styleObj" 
+			:showLogistics="showLogistics" 
+			:showConfirm="showConfirm">
 			<div class="date" slot="date">
 				<div>
 					<p>Order No. :<span>{{OrderDetailsData.orderNumber}}</span></p>
@@ -25,7 +30,8 @@
 				styleObj: {
 					'margin-bottom': '10px'
 				},
-				showLogistics: true
+				showLogistics: true,
+				showConfirm: true
 			}
 		},
 		components: {
@@ -51,7 +57,10 @@
 		    },
 		    onError: function (e) {
 		      
-		    }
+			},
+			loadData() {
+				console.log(123);
+			}
 		}
 	}
 </script>

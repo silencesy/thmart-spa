@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="data">
         <ShopGoodsItem class="item" :shopData="data" />
         <div class="reviews-content">
             <div class="reviews-box">

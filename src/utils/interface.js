@@ -85,6 +85,8 @@ exports.install = function(Vue, options) {
         OrderList: 'Order/list',
         // 删除订单
         OrderDelete: 'Order/delete',
+        // 确认订单单个商品到货
+        ordersskuconfirm: 'Order/ordersskuconfirm',
         // 订单详情页
         OrderDetail: 'Order/detail',
         // 优惠券列表页

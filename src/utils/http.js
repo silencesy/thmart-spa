@@ -122,11 +122,9 @@ Axios.interceptors.response.use(
             if (res.data.code == 130) {
                 Toast('The coupon is expired.');
             }
-            // if (res.data.code == 0) {
-            //     router.push({
-            //         path: "/error"
-            //     });
-            // }
+            if (res.data.code == 0) {
+                Toast(res.data.message);
+            }
             // 如果返回token就设置token
             if (res.data.data && res.data.data.token) {
                 localStorage.setItem('token', res.data.data.token);
