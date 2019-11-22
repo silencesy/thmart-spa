@@ -50,6 +50,7 @@
           </div>
           <div v-if="orderData.ticketstatus.status == 1 && loginstatus" class="btn-box">
             <span class="logout" @click="logout">注销登录</span>
+            <span class="logout">已使用</span>
           </div>
           <div class="btn-box" v-if="!loginstatus">
             <span @click="showLoginLayer">登录</span>
@@ -85,10 +86,14 @@
         </div>
       </div>
     </div>
-
+    <div class="sys-btn" v-if="isWeiXinFlag">
+      <button @click="sysFunc">扫一扫</button>
+    </div>
   </div>
 </template>
 <script>
+  import wx from 'weixin-js-sdk';
+  import { Toast } from 'mint-ui';
   export default {
     name: 'reviewConsumption',
 		data() {
@@ -99,16 +104,93 @@
         loginLayer: true,
         hxLayer: false,
         orderData: null,
-        code: this.$route.query.id
+        code: this.$route.query.id,
+        isWeiXinFlag: false,
+
+
+        signPackage: null
 			}
 		},
     created() {
       this.isLogin();
     },
 		mounted() {
-			this.getData();
+      this.getData();
+      // this.getWx();
+      if(this.isWeiXin()) {
+        this.isWeiXinFlag = true;
+      }
 		},
 		methods: {
+      getWx() {
+        let that = this;
+        var u = navigator.userAgent;
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isiOS) {
+            var url = window.sessionStorage.getItem('href');
+        } else {
+            var url = window.location.href;
+        }
+        that.$http.post(that.urls.share, {
+            url: url
+          })
+          .then(function (response) {
+            that.signPackage = response.data.data.signPackage;
+            // console.log(response);
+            that.share();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      share() {
+        var that = this;
+        wx.config({
+          debug: false, // 是否开启调试模式
+          appId: that.signPackage.appId,
+          timestamp: that.signPackage.timestamp,
+          nonceStr: that.signPackage.nonceStr,
+          signature: that.signPackage.signature,
+          jsApiList: ['onMenuShareTimeline', //分享到朋友圈
+            'onMenuShareAppMessage', //分享给朋友
+            'onMenuShareQQ', //分享到QQ
+            'scanQRCode'
+          ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+          wx.scanQRCode({
+            desc: '扫描',
+            needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+            success: function (res) {
+              // 回调
+            },
+            error: function(res){
+              if(res.errMsg.indexOf('function_not_exist') > 0){
+                alert('版本过低请升级');
+              }
+            }
+          });
+          var url = window.location.href;
+          var options = {
+            title: 'thMart', // 分享标题
+            link: encodeURI(url), // 分享链接，记得使用绝对路径
+            imgUrl: encodeURI('http://api.mall.thatsmags.com/Public/ckfinder/images/logo.png'), // 分享图标，记得使用绝对路径
+            desc: 'That’s making your life easier!', // 分享描述
+            success: function () {
+              console.info('分享成功！');
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+              console.info('取消分享！');
+              // 用户取消分享后执行的回调函数
+            }
+          }
+          wx.onMenuShareTimeline(options); // 分享到朋友圈
+          wx.onMenuShareAppMessage(options); // 分享给朋友
+          wx.onMenuShareQQ(options); // 分享到QQ
+        });
+      },
       getData() {
         var that = this;
         that.$http2.get('checkcode',{
@@ -126,6 +208,9 @@
           password: that.password,
           name: that.name
 				}).then(function(response) {
+          if(response.data.status == "success") {
+            Toast('登录成功！');
+          }
           that.isLogin();
 				})
       },
@@ -134,12 +219,19 @@
         this.loginLayer = window.localStorage.getItem('hxtoken')?false:true;
       },
       logout() {
-        window.localStorage.removeItem('hxtoken')
+        window.localStorage.removeItem('hxtoken');
+        Toast('注销登录！');
         this.loginstatus = false;
       },
       showLoginLayer() {
         this.loginLayer = true;
         this.goTop();
+      },
+      sysFunc() {
+        // wx.ready(function () {
+          
+        // });
+        this.getWx();
       },
       goTop() {
         document.documentElement.scrollTop = 0;
@@ -162,6 +254,9 @@
           console.log(response);
           that.orderData.ticketstatus = response.data.data;
           that.hxLayer = false;
+          if(response.data.status == "success") {
+            Toast('核销成功！');
+          }
 				}).catch(function (error) { // 请求失败处理
           if(error.response.data.code == 422) {
             that.hxLayer = false;
@@ -264,7 +359,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.35);
-  z-index: 100;
+  z-index: 1;
   box-sizing: border-box;
   padding: 10px;
 }
@@ -318,5 +413,17 @@
   border-radius: 30px;
   color: #666666;
   margin-right: 10px;
+}
+.sys-btn {
+  text-align: center;
+}
+.sys-btn button {
+  color: #fff;
+  background-color: #F9421E;
+  font-size: 16px;
+  padding: 3px 30px;
+  border-radius: 30px;
+  border-width: 0;
+  margin-top: 20px;
 }
 </style>

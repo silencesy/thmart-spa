@@ -40,7 +40,8 @@ export default {
           signature: that.signPackage.signature,
           jsApiList: ['onMenuShareTimeline', //分享到朋友圈
             'onMenuShareAppMessage', //分享给朋友
-            'onMenuShareQQ' //分享到QQ
+            'onMenuShareQQ', //分享到QQ
+            'scanQRCode'
           ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
         wx.ready(function () {

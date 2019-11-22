@@ -7,5 +7,5 @@ module.exports = merge(prodEnv, {
   ENV_CONFIG: '"dev"',
   // BASE_API: '"http://api.com/thmartApi/"',
   BASE_API: '"http://api.mall.thatsmags.com/thmartApi/"',
-  BASE_API2: '"http://192.168.0.201:8090/api/v1/"'
+  BASE_API2: '"http://api.thmart.com.cn/api/v1/"'
 })

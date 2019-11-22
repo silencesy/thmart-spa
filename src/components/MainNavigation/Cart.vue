@@ -113,7 +113,8 @@ export default {
        showGoods: false,
        dataList: [],
        couponPrice: '',
-       total: '',
+	   total: '',
+	   ispay: 1,
        allSelect: false,
        goodsCunt: 0,
        goodsSelectCount: 0
@@ -153,6 +154,7 @@ export default {
 				// console.log(response.data);
 				that.dataList = response.data.data.data;
 				that.total = response.data.data.total;
+				that.ispay = response.data.data.ispay;
 				that.couponPrice = response.data.data.reduceTotal;
 				that.showGoods = true;
 				that.initData();
@@ -277,6 +279,7 @@ export default {
 				if (response.data.code == 1) {
 						// 赋值总价
 					that.total = response.data.data.total;
+					that.ispay = response.data.data.ispay;
 					// 赋值满减
 					that.couponPrice = response.data.data.reduceTotal;
 					// 设置单个商品选中状态
@@ -332,6 +335,7 @@ export default {
 				if (response.data.code == 1) {
 						// 赋值总价
 					that.total = response.data.data.total;
+					that.ispay = response.data.data.ispay;
 					// 赋值满减
 					that.couponPrice = response.data.data.reduceTotal;
 					// 批量设置选中
@@ -373,6 +377,7 @@ export default {
 					if (response.data.code == 1) {
 							// 赋值总价
 						that.total = response.data.data.total;
+						that.ispay = response.data.data.ispay;
 						// 赋值满减
 						that.couponPrice = response.data.data.reduceTotal;
 						that.setAllSelect(!allSelect);
@@ -389,6 +394,7 @@ export default {
 					if (response.data.code == 1) {
 							// 赋值总价
 						that.total = response.data.data.total;
+						that.ispay = response.data.data.ispay;
 						// 赋值满减
 						that.couponPrice = response.data.data.reduceTotal;
 						that.setAllSelect(!allSelect);
@@ -499,6 +505,8 @@ export default {
 		// 提示用户勾选商品
 		if (this.total == 0) {
 			Toast('Please select at least one goods before the payment.');
+		} else if (this.ispay == 0) {
+			Toast('Each e-ticket event has the exclusive access QR code, please purchase your different e-ticket events in separate orders to avoid the confusion.');
 		} else {
 			this.$router.push('OrderConfirmation');
 		}

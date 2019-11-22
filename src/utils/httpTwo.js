@@ -14,7 +14,9 @@ const Axios = axios.create({
 });
 //POST传参序列化(添加请求拦截器)
 Axios.interceptors.request.use(
+    
     config => {
+        Indicator.open('加载中...');
         if (
             config.method === "post"
         ) {
@@ -39,6 +41,7 @@ Axios.interceptors.request.use(
 //返回状态判断(添加响应拦截器)
 Axios.interceptors.response.use(
     res => {
+        Indicator.close();
         if (res.headers.authorization) {
             window.localStorage.setItem('hxtoken', res.headers.authorization);
         }
@@ -49,6 +52,7 @@ Axios.interceptors.response.use(
         return Promise.resolve(res);
     },
     error => {
+        Indicator.close();
         if (error.response.headers.authorization) {
             window.localStorage.setItem('hxtoken', error.response.headers.authorization);
         }

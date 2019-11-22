@@ -381,4 +381,7 @@ export default {
   .GoodsList-container-class .picker-slot {
     width: 100% !important;
   }
+  .mint-indicator-wrapper {
+    z-index: 10 !important;
+  }
 </style>
