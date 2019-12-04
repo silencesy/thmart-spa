@@ -374,7 +374,7 @@
   padding: 0 15px;
 }
 .layer-content.done {
-  height: 130px;
+  height: 150px;
   margin-top: 60%;
 }
 .layer-content .title {
