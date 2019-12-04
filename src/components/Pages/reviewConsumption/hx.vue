@@ -21,39 +21,39 @@
       <div class="info-box">
         <div class="info">
           <div class="item">
-            <div class="left">订单号 :</div>
+            <div class="left">订单号/Order No.:</div>
             <div class="right">{{orderData.order}}</div>
           </div>
           <div class="item">
-            <div class="left">下单时间 :</div>
+            <div class="left">下单时间/Ordered At:</div>
             <div class="right">{{orderData.orderTime}}</div>
           </div>
           <div class="item">
-            <div class="left">姓名 :</div>
+            <div class="left">姓名/Name:</div>
             <div class="right">{{orderData.users.nickname}}</div>
           </div>
           <div class="item">
-            <div class="left">电话 :</div>
+            <div class="left">电话/Phone :</div>
             <div class="right">{{orderData.users.mobile}}</div>
           </div>
           <div class="item">
-            <div class="left">状态 :</div>
-            <div class="right status">{{orderData.ticketstatus.name}}</div>
+            <div class="left">状态/Status :</div>
+            <div class="right status">{{orderData.ticketstatus.name}}/<span v-if="orderData.ticketstatus.name=='已使用'">Used</span><span v-if="orderData.ticketstatus.name=='未使用'">Unused</span> </div>
           </div>
           <div v-if="orderData.ticketstatus.status == 1" class="item">
             <div class="left"></div>
             <div class="right tip">{{orderData.ticketstatus.time}}</div>
           </div>
           <div v-if="orderData.ticketstatus.status == 0 && loginstatus" class="btn-box">
-            <span class="logout" @click="logout">注销登录</span>
-            <span @click="bindHxDone">核销</span>
+            <span class="logout" @click="logout">注销/Sign out</span>
+            <span @click="bindHxDone">核销/Verify</span>
           </div>
           <div v-if="orderData.ticketstatus.status == 1 && loginstatus" class="btn-box">
-            <span class="logout" @click="logout">注销登录</span>
-            <span class="logout">已使用</span>
+            <span class="logout" @click="logout">注销/Sign out</span>
+            <span class="logout">已使用/Used</span>
           </div>
           <div class="btn-box" v-if="!loginstatus">
-            <span @click="showLoginLayer">登录</span>
+            <span @click="showLoginLayer">登录/Log in</span>
           </div>
         </div>
       </div>
@@ -64,30 +64,30 @@
           thMart核销后台登录
         </div>
         <div class="input-box">
-          <input v-model="name" @blur="goTop" placeholder="用户名" type="text">
+          <input v-model="name" @blur="goTop" placeholder="用户名/username" type="text">
         </div>
         <div class="input-box">
-          <input v-model="password" @blur="goTop" placeholder="密码" type="password">
+          <input v-model="password" @blur="goTop" placeholder="密码/password" type="password">
         </div>
         <div class="login-btns">
-          <span @click="loginLayerClose">取消</span>
+          <span @click="loginLayerClose">取消/Cancel</span>
           <span class="line">|</span>
-          <span class="theme_color" @click="backLogin">登录</span>
+          <span class="theme_color" @click="backLogin">登录/Log in</span>
         </div>
       </div>
     </div>
     <div class="layer" v-if="hxLayer">
       <div class="layer-content done">
-        <div class="done-text">确定核销这个订单？</div>
+        <div class="done-text">确定核销这个订单？/Are you sure to verify this order?</div>
         <div class="login-btns">
-          <span @click="hxCancel">取消</span>
+          <span @click="hxCancel">取消/Cancel</span>
           <span class="line">|</span>
-          <span @click="hxAxios" class="theme_color">确定</span>
+          <span @click="hxAxios" class="theme_color">确定/Done</span>
         </div>
       </div>
     </div>
     <div class="sys-btn" v-if="isWeiXinFlag">
-      <button @click="sysFunc">扫一扫</button>
+      <button @click="sysFunc">扫一扫/Scan</button>
     </div>
   </div>
 </template>
@@ -209,7 +209,7 @@
           name: that.name
 				}).then(function(response) {
           if(response.data.status == "success") {
-            Toast('登录成功！');
+            Toast('登录成功/Successfully!');
           }
           that.isLogin();
 				})
@@ -220,7 +220,7 @@
       },
       logout() {
         window.localStorage.removeItem('hxtoken');
-        Toast('注销登录！');
+        Toast('注销成功/Successfully!');
         this.loginstatus = false;
       },
       showLoginLayer() {
@@ -255,7 +255,7 @@
           that.orderData.ticketstatus = response.data.data;
           that.hxLayer = false;
           if(response.data.status == "success") {
-            Toast('核销成功！');
+            Toast('核销成功/Successfully！');
           }
 				}).catch(function (error) { // 请求失败处理
           if(error.response.data.code == 422) {
@@ -327,10 +327,10 @@
 }
 .item {
   display: flex;
-  line-height: 26px;
+  line-height: 35px;
 }
 .item .left {
-  width: 100px;
+  width: 160px;
 }
 .btn-box {
   padding: 10px;
@@ -340,7 +340,7 @@
   color: #fff;
   background-color: #F9421E;
   font-size: 16px;
-  padding: 3px 30px;
+  padding: 3px 20px;
   border-radius: 30px;
   border-width: 0;
   display: inline-block;
@@ -400,7 +400,7 @@
   align-items: center;
 }
 .login-btns span {
-  padding: 20px 30px;
+  padding: 20px 10px;
 }
 .done-text {
   text-align: center;
