@@ -506,7 +506,7 @@ export default {
 		if (this.total == 0) {
 			Toast('Please select at least one goods before the payment.');
 		} else if (this.ispay == 0) {
-			Toast('Each e-ticket event has the exclusive access QR code, please purchase your different e-ticket events in separate orders to avoid the confusion.');
+			Toast('To purchase eTickets, please submit your order separately.');
 		} else {
 			this.$router.push('OrderConfirmation');
 		}
