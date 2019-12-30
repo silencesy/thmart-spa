@@ -236,6 +236,7 @@ export default {
 					console.log(response);
 					// 赋值总价
 					that.total = response.data.data.total;
+					that.ispay = response.data.data.ispay;
 					// 赋值满减
 					that.couponPrice = response.data.data.reduceTotal;
 					for (var i = 0; i < that.dataList.length; i++) {
