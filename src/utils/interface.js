@@ -116,6 +116,8 @@ exports.install = function(Vue, options) {
         // 一个用户48小时内不能对一个商品发起两次拼单
         checkThree: 'OrderSpell/checkThree',
         // 优惠券广告页面
-        discountlist: 'Ads/Home/discountlist'
+        discountlist: 'Ads/Home/discountlist',
+        // 春运消息
+        getmessage: "getmessage"
     }
 };

@@ -21,7 +21,10 @@
 				<div class="iconfont icon-combinedshapefuben"></div>
 			</div>
 			<img src="static/images/common/letter.jpg" alt="">
-		</div>	
+		</div>
+		<div v-if="springTips == 1" class="spring-tips">
+			* Dear customer, please note that our delivery service will be suspended during Chinese New Year Holiday (Jan.14 - Feb.3). Thank you for your understanding!
+		</div>
 		<div class="container">
 			<div v-for="(item,index) in orderConfirmData.overReduceArray" :key="index">
 				<FullReductionSection :shopData="item" :key="index">
@@ -134,7 +137,8 @@
 				orderConfirmData: null,
 				popupVisible: false,
 				finalPrice: 0,
-				remark: ''
+				remark: '',
+				springTips: 0   //春运是否提示
 			}
 		},
 		components: {
@@ -146,6 +150,7 @@
 			this.getAddr();
 			// 获取详情
 			this.getOrderConfirmData();
+			this.getmessage();
 		},
 		computed: {
 			finallyFullReduction: function() {
@@ -161,6 +166,14 @@
 			}
 		},
 		methods: {
+			// 获取春运提示
+			getmessage() {
+				var that = this;
+				that.$http.get(this.urls.getmessage,{})
+				.then(function (response) {
+					that.springTips =response.data.data.data;
+				});
+			},
 			// 获取地址
 			getAddr() {
 				if (this.$store.state.oneAddress) {
@@ -364,6 +377,16 @@
 	}
 </script>
 <style scoped>
+	.spring-tips {
+		margin: 10px;
+		padding: 10px;
+		box-sizing: border-box;
+		background-color: #fff;
+		color: #666;
+		border: 1px solid #dfdfdf;
+		border-radius: 4px;
+		overflow: hidden;
+	}
 	.address-info-tip {
 		background-color: #fff;
 		margin-bottom: 10px;
