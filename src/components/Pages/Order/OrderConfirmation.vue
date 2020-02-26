@@ -136,7 +136,10 @@
 				popupVisible: false,
 				finalPrice: 0,
 				remark: '',
-				springTips: 0   //春运是否提示
+				springTips: {
+					sysval: 0,
+					showtext: ''
+				}   //春运是否提示
 			}
 		},
 		components: {
