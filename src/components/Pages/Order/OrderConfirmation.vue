@@ -22,9 +22,7 @@
 			</div>
 			<img src="static/images/common/letter.jpg" alt="">
 		</div>
-		<div v-if="springTips == 1" class="spring-tips">
-			* Dear customer, please note that our delivery service will be suspended during Chinese New Year Holiday (Jan.14 - Feb.3). Thank you for your understanding!
-		</div>
+		<div v-if="springTips.sysval == 1" v-html="springTips.showtext" class="spring-tips"></div>
 		<div class="container">
 			<div v-for="(item,index) in orderConfirmData.overReduceArray" :key="index">
 				<FullReductionSection :shopData="item" :key="index">
